@@ -15,7 +15,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-center backColor colorLetter" id="headLogin">{{ __('Login') }}</div>
-
+                @if(session()->has('success'))
+                <p class="text-success text-center">{{ session('success') }}</p>
+               @endif
                 <div class="card-body formBody">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

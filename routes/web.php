@@ -17,8 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+Route::get('/password/resetCustom/{token}', 'Auth\ForgotPasswordController@passwordReset')
+->name('passwordReset');
 Auth::routes();
-
+Route::post('/password/reset', 'Auth\ForgotPasswordController@passwordUpdate')
+->name('password.update');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group([
     'middleware'    =>  ['auth'],
