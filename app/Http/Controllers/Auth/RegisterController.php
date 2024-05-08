@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RegisterController extends Controller
 {
@@ -73,11 +75,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       
-        return User::create([
+        $user=User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        //Le asigno el rol de cliente al momento de dar de alta al nuevo usuario
+        //usando el login de la página
+        $user->assignRole('Client');
+        return $user;
     }
 }

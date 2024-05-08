@@ -8,7 +8,7 @@ $(document).ready(function(){
 function validateForm() {
     let flag = true;
 
-    if ($('#name').val() == "")
+    if ($('#first_name').val() == "")
         flag = chekedInputOrFields("name");
 
     if ($('#username').val() == "")
@@ -32,8 +32,8 @@ function validateForm() {
     if ($('#password').val() == "")
         flag = chekedInputOrFields("password");
 
-    if ($('#role').val() == null)
-        flag = chekedInputOrFields("role");
+    /*if ($('#role').val() == null)
+        flag = chekedInputOrFields("role");*/
 
     if ($('#dni').val() == "")
         flag = chekedInputOrFields("dni");
@@ -60,7 +60,7 @@ function validateForm() {
         flag = chekedInputOrFields("date_of_birth");
 
 
-
+    alert(flag);
     return flag;
 }
 

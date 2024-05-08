@@ -28,6 +28,7 @@ Route::group([
     'prefix'        =>  'userClient'
 ],function(){
    
-    Route::get('show','UserClient@index')->name('userClient.index');
+    Route::get('show','UserDataController@index')->name('userClient.index');
+    Route::put('update','UserDataController@update')->name('userClient.update');
 
 });

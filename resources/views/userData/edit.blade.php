@@ -19,7 +19,11 @@
             <!-- /.card-header -->
 
             <!-- form start -->
-            <form class="formBody" method="POST"  onsubmit="return validateForm();" enctype="multipart/form-data" 
+            <form class="formBody" 
+            action="{{route('userClient.update')}}"
+             method="POST"  
+            
+            enctype="multipart/form-data" 
             autocomplete="off">
                   @method('PUT')
                   @csrf
@@ -41,6 +45,7 @@
 
 
 @endsection
+@extends('layouts.footer')
 <!-- Content Wrapper. Contains page content -->
 
 @section('scripts')
