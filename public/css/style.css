@@ -1,0 +1,132 @@
+/* custom style */
+
+.customFileLabelAvatar::after {
+    content: "Avatar" !important;
+}
+
+.userImage {
+    width: 35px;
+    height: 35px;
+}
+.textFirstName,
+.textLastName{
+    font-family: "Roboto_Regular";
+    font-size: 14px;
+}
+
+.displayNoneError{
+    display: none;
+}
+.imgWelcome{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.countCart{
+    border: 1px solid grey;
+    width: 44px;
+}
+
+/*Estilos para la barra de navegación*/
+.backColor{
+    background-color: var(--first-dark);
+   
+}
+
+.colorLetter{
+    color:var(--first-grey)!important;
+}
+
+.btnStyle1{
+    background-color: var(--first-dark);
+    color:var(--first-grey)!important;
+}
+
+/*Estilos formulario registro*/
+.formBody{
+    background-color: var(--first-grey);
+}
+
+.formBody label{
+    color:var(--first-dark);
+}
+
+.btnStyle1:hover{
+    background-color: var(--first-cream);
+    color: var(--first-dark)!important;;
+}
+
+/*Estilos generales*/
+body{
+ 
+    background-color:var(--color-grey)!important;
+    font-family: "Space Grotesk", 'Times New Roman', Times, serif;
+      
+  }
+  a{
+      cursor: pointer;
+      text-decoration: none;
+  
+  }
+  
+  
+  
+  ul{
+    list-style:none!important;
+  }
+  
+  .optionBar{
+      background-color: var(--first-dark);
+      border: none;
+      
+  }
+  
+  .hamburgerBtn{
+    background-color: var(--first-grey);
+    color:var(--first-dark);
+    
+  }
+  
+  .hamburguerIcon{
+    width:50px;
+  }
+  
+  
+  #navGuestBar{
+    background-color: var(--first-dark);
+  }
+  .optionBar a{
+    color:var(--first-grey);
+   
+    
+  }
+  
+  .optionBar ul{
+    background-color: var(--first-dark);
+    color:var(--color-grey);
+  }
+  
+  .opcionesRegistro a{
+     color: var(--first-dark);
+     
+  }
+  
+  /*Inicio del código para mantener siempre el pie de página debajo
+  Sacado de: 
+  
+  https://www.freecodecamp.org/espanol/news/como-mantener-tu-pie-de-pagina-donde-pertenece/
+  
+  */
+  
+  
+
+  
+  
+    .footer-color{
+      background-color:var(--color-fondo-pie)!important;
+    }
+  
+    .footer-color li{
+      list-style-type: none;
+    }
+  
