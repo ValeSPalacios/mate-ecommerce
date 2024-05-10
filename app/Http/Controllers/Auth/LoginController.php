@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Session;
@@ -44,15 +45,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm(){
+        $categories=Category::all();
+        return view('auth.login',compact('categories'));
+    }
+
     public function login(Request $request){
         $user=null;
         //recuperamos las credenciales
         $credentials=$this->credentials($request);
+        $categories=Category::all();
+        
         //Comprueba si las credenciales son válidas
         if(Auth::validate($credentials)){
             $user=Auth::getLastAttempted();
             auth()->login($user);
-            return redirect('home');
+            return redirect()->route('index',compact('categories'));
         }else{
            return $this->redirectWithErrors($credentials);
            

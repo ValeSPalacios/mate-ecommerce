@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -81,8 +82,14 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         //Le asigno el rol de cliente al momento de dar de alta al nuevo usuario
-        //usando el login de la página
+        //usando el login de la página 
         $user->assignRole('Client');
         return $user;
+    }
+
+    public function showRegistrationForm()
+    {
+        $categories=Category::all();
+        return view('auth.register',compact('categories'));
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Hash;
 use App\Jobs\SendMailForgotPassword;
-
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 
 class ForgotPasswordController extends Controller
@@ -29,6 +29,15 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+  
+    public function showLinkRequestForm()
+    {
+        
+            $categories=Category::all();
+            return view('auth.passwords.email',compact('categories'));
+       
+    }
 
     /**
      * Permite enviar el enlace de reseteo de contraseña al mail del usuario

@@ -29,14 +29,13 @@
                                             Productos
                                         </a>
                                         <ul class="dropdown-menu optionBar">
+                                            @foreach ($categories as $category)
                                             <li><a class="dropdown-item" id="equipoMate"
-                                                    onclick="getProduct('${catEquipoMate}')">
-                                                    Equipos De Mate</a></li>
-                                            <li><a class="dropdown-item" id="mate"
-                                                    onclick="getProduct('${catMate}')">Mate</a></li>
-                                            <li><a class="dropdown-item" id="termo-mate">Termos y Mates</a></li>
-                                            <li><a class="dropdown-item" id="latas">Juego De Latas</a></li>
-                                            <li><a class="dropdown-item" id="bolsos">Bolsos Materos</a></li>
+                                                href="{{route('showProduct',$category->id)}}">
+                                                {{$category->name}}
+                                            </a>
+                                            </li>
+                                            @endforeach
                                         </ul>
 
                                     </li>

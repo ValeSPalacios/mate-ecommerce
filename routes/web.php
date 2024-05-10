@@ -13,16 +13,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/','HomeController@index')->name('index');
 
 Route::get('/password/resetCustom/{token}', 'Auth\ForgotPasswordController@passwordReset')
 ->name('passwordReset');
 Auth::routes();
 Route::post('/password/reset', 'Auth\ForgotPasswordController@passwordUpdate')
 ->name('password.update');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('showForCategory/{id_category}','ProductController@showToClient')->name('showProduct');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group([
     'middleware'    =>  ['auth'],
     'prefix'        =>  'userClient'
@@ -30,5 +29,9 @@ Route::group([
    
     Route::get('show','UserDataController@index')->name('userClient.index');
     Route::put('update','UserDataController@update')->name('userClient.update');
+    Route::post('addCart','CartController@store')->name('cart.store');
+    Route::get('indexCart','CartController@index')->name('cart.index');
+    Route::post('cartStore','CartController@store')->name('cart.store');
+    Route::put('{detail}/addToCart','CartController@update')->name('cart.update');
 
 });
