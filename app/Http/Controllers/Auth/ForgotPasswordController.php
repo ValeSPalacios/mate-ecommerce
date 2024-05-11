@@ -45,6 +45,7 @@ class ForgotPasswordController extends Controller
      */
     public function sendResetLinkEmail(Request $request)
     {
+        $categories=Category::all();
         $user=$this->getUser($this->credentials($request));
         //dd($user);
         $codeToken=$this->createToken();
@@ -58,7 +59,7 @@ class ForgotPasswordController extends Controller
             $passwordReset=PasswordReset::where('email',$user->email)->first();
             $this->createOrUpdatePasswordReset($passwordReset,$user,$codeToken);
             $this->sendEmailForReset($user,$codeToken);
-            return view('emails.successSendMail');
+            return view('emails.successSendMail',compact('categories'));
         }
     }
 
@@ -156,6 +157,7 @@ class ForgotPasswordController extends Controller
     public function passwordReset(Request $request){
         //Selecciona el registro en la tabla PasswordReset con el mail y token correspondiente
         //para la sesión creada.
+        $categories=Category::all();
         $passwordReset=PasswordReset::select('email','token')->where('email',session('email'))
         ->where('token',session('codeToken'))->first();
         //Si no existe ese registro, se envia un mensaje de error 
@@ -168,7 +170,7 @@ class ForgotPasswordController extends Controller
         }else{
             $email=$passwordReset->email;
             $token=$passwordReset->token;
-            return view('auth.passwords.reset',compact('email','token'));
+            return view('auth.passwords.reset',compact('email','token','categories'));
         }
        
     }

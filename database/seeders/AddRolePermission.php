@@ -33,18 +33,14 @@ class AddRolePermission extends Seeder
         Role::create(['name'=>'Client']);
 
         $rolAdmin->givePermissionTo([
-            'users.index',
-            'users.edit',
-            'users.show',
-            'users.create',
-            'users.destroy'
+            'admin.index'
         ]);
         $user=User::create([
             'username'=>'admin',
             'email'=>'admin@gmail.com',
             'password'=>bcrypt('0123456789')
         ]);
-        $user->assignRole('Admin');
+       $user->assignRole('Admin');
         
 
 

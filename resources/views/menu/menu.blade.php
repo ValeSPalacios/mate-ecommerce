@@ -39,13 +39,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('user.create') }}" class="nav-link">
+                    <a href="{{ route('admin.user.create') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('user.index') }}" class="nav-link">
+                    <a href="{{ route('admin.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>List</p>
                     </a>
@@ -63,13 +63,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('provider.create') }}" class="nav-link">
+                    <a href="{{ route('admin.provider.create') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('provider.index') }}" class="nav-link">
+                    <a href="{{ route('admin.provider.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>List</p>
                     </a>
@@ -87,13 +87,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('product.create') }}" class="nav-link">
+                    <a href="{{ route('admin.product.create') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('product.index') }}" class="nav-link">
+                    <a href="{{ route('admin.product.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>List</p>
                     </a>
@@ -111,13 +111,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('purchase.create') }}" class="nav-link">
+                    <a href="{{ route('admin.purchase.create') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('purchase.index') }}" class="nav-link">
+                    <a href="{{ route('admin.purchase.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>List</p>
                     </a>
