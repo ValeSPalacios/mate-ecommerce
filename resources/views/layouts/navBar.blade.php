@@ -50,58 +50,7 @@
                                         <a class="nav-link" aria-current="page" href='${contact}'>Contacto</a>
                                     </li>
 
-                                    @guest
-
-                                    @else
-                                        <li class="nav-item">
-                                            <div class="dropdown">
-                                                <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#"
-                                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" v-pre>
-                                                    <i class="fa-regular fa-user"></i>
-
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-start backColor colorLetter"
-                                                    aria-labelledby="navbarDropdown">
-
-                                                    <span class="fs-5 text-center d-block">
-                                                        {{ Auth::user()->username }}
-                                                    </span>
-                                                     <!-- Empieza Codigo logout-->
-                                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                                   
-                                                        onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
-                                                        <i class="fa-solid fa-power-off w-75">
-                                                            {{ __('Logout') }}
-                                                        </i>
-
-                                                    </a>
-
-                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                        class="d-none">
-                                                        @csrf
-                                                    </form>
-                                                     <!-- Empieza Codigo logout-->
-                                                    <a class="dropdown-item" href="{{ route('userClient.index') }}">
-                                                        <i class="fa-solid fa-book w-75">
-
-                                                            {{ __('Editar Datos') }}
-                                                        </i>
-
-
-
-
-                                                    </a>
-
-
-
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endguest
+                                    
 
                                 </ul>
 
