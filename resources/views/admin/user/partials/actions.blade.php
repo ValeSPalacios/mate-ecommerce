@@ -14,11 +14,7 @@
 
 
                 <div class="card-body">
-                    <div class="form-group">
-                      <label>Name</label>
-                      {{-- <input type="text" class="form-control userDataJSName" disabled> --}}
-                      <input type="text" class="form-control" value="{{ $user->name }}" disabled>
-                    </div>
+              
                     <div class="form-group">
                       <label>Username</label>
                       <input type="text" class="form-control {{-- userUsernameJS --}}" value="{{ $user->username }}" disabled>

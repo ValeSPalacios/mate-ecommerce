@@ -84,6 +84,7 @@
         <div class="wrapper">
             @yield('nav')
             @yield('menu')
+           
             <main class="py-4">
                 @yield('content')
             </main>

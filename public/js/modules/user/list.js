@@ -29,8 +29,11 @@ function deleteUser(userId){
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: '/user/destroy',
+                url: 'userDestroy',
                 data: { userId },
+                Headers:{
+                    token: $('meta[name="csrf_token"]').attr('content')
+                },
                 success: function (data) {
                     if (data.status === 200) {
                         toastr.success('User delete successfully');

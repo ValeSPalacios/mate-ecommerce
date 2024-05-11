@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Controlador que se encarga de actualizar los datos para el usuario registrado y que 
+ * ha iniciado sesión. Este es el usuario cliente.
+ */
 class UserDataController extends Controller
 {
     /**

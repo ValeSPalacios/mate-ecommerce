@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title titleModule">User List</h3> <a href="{{ route('user.create') }}" class="btn float-right colorCyan" role="button">+ Add User</a>
+                    <h3 class="card-title titleModule">User List</h3> <a href="{{ route('admin.user.create') }}" class="btn float-right colorCyan" role="button">+ Add User</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -89,7 +89,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @include('user/partials/actions')
+                                @include('admin.user.partials.actions')
                             @endforeach
                         </tbody>
                         <tfoot>
