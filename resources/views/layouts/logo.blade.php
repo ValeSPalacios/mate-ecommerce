@@ -24,20 +24,19 @@
                 @else
 
                 <div class="btn-group">
-                    <button class="poppins-medium dropdown-toggle btn p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="poppins-medium dropdown-toggle btn p-2" style="font-size: 20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ Auth::user()->username }}
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                        <li><a class="dropdown-item active" href="#"> {{ Auth::user()->username }} </a></li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
-                        </li>
+                    <ul class="poppins-regular logo-navbar-nav dropdown-menu dropdown-menu-end dropdown-menu-lg-start body">
                         <li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                             <a class="dropdown-item" href="#"> {{ __('Editar Datos') }} </a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"> {{ __('Salir') }} </a>
                         </li>
                     </ul>
                 </div>

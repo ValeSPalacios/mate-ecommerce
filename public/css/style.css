@@ -21,8 +21,6 @@
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: 20px;
-
 }
 
 .poppins-semibold {
@@ -31,6 +29,43 @@
   font-style: normal;
 }
 
+/*  Logo nav  */
+.logo-navbar-nav li a:hover, .logo-navbar-nav li.active a {
+  color: var(--tertiary-color) !important;
+  background-color: var(--primary-color) !important;
+}
+
+/*  Navbar  */ 
+.navGuestBar{
+  background-color: var(--tertiary-color);
+}
+
+.nav-tabs .nav-item .nav-link {
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
+}
+
+.nav-tabs .nav-item .nav-link.active{
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+}
+
+/*  Footer  */
+
+.footer-style{
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
+}
+
+.footer-icon {
+  color: var(--secondary-color);
+
+}
+
+
+
+
+/* ############################################################################## */
 /* custom style */
 
 .customFileLabelAvatar::after {
@@ -58,12 +93,6 @@
 .countCart{
     border: 1px solid grey;
     width: 44px;
-}
-
-/*Estilos para la barra de navegación*/
-.backColor{
-    background-color: var(--first-dark);
-   
 }
 
 .colorLetter{
@@ -101,27 +130,7 @@
   ul{
     list-style:none!important;
   }
-  
-  .optionBar{
-      background-color: var(--first-dark);
-      border: none;
-      
-  }
-  
-  .hamburgerBtn{
-    background-color: var(--first-grey);
-    color:var(--first-dark);
-    
-  }
-  
-  .hamburguerIcon{
-    width:50px;
-  }
-  
-  
-  #navGuestBar{
-    background-color: var(--first-dark);
-  }
+
   .optionBar a{
     color:var(--first-grey);
    
@@ -149,11 +158,5 @@
 
   
   
-    .footer-color{
-      background-color:var(--color-fondo-pie)!important;
-    }
-  
-    .footer-color li{
-      list-style-type: none;
-    }
+    
   
