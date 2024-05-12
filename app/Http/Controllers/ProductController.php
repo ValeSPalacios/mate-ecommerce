@@ -130,6 +130,7 @@ class ProductController extends Controller
         $product->cost_price=$request->price;
         $product->category_id=$request->category;
         $product->increase=$request->increase;
+        $product->user_updated=auth()->user()->id;
         $product->save();
         return redirect()->route('admin.product.index');
     }
