@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title titleModule">Product List</h3> <a href="{{ route('product.create') }}" class="btn float-right colorCyan" role="button">+ Add Product</a>
+                    <h3 class="card-title titleModule">Product List</h3> <a href="{{ route('admin.product.create') }}" class="btn float-right colorCyan" role="button">+ Add Product</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -17,9 +17,10 @@
 
                         <thead>
                             <tr>
+                                <th style="width:30%; text-align:center">Name</th>
                                 <th style="width:30%; text-align:center">Description</th>
                                 <th style="width:10%; text-align:center">Cost Price</th>
-                                <th style="width:30%; text-align:center">Provider</th>
+                                <th style="width:30%; text-align:center">Category</th>
                                 <th style="width:20%; text-align:center">Stock</th>
                                 <th style="text-align:center">Actions</th>
                             </tr>
@@ -28,24 +29,22 @@
                             @foreach ($products as $product)
                                 <tr id='productId_{{$product->id}}'>
                                     <td>
+                                        <span class="textFirstName"> {{ $product->name }}</span>
+                                    </td>
+                                    <td>
                                         <span class="textFirstName"> {{ $product->description }}</span>
                                     </td>
                                     <td style=" text-align:center">
                                         <span class="textFirstName">{{ !empty($product->cost_price) ? $product->cost_price : '0.00' }}</span>
                                     </td>
+                                    <!--
                                     <td style=" text-align:center">
                                         <span class="textFirstName">
-                                            @if (!empty($product->product_provider))
-                                                @foreach ($product->product_provider as $key => $provider)
-                                                    {{ $provider->first_name.', '.$provider->last_name }}
-                                                    @if ($key < (count($product->product_provider) -1))
-                                                        <br>
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                -
-                                            @endif
+                                           
                                         </span>
+                                    </td>-->
+                                    <td>
+                                        <span class="textFirstName"> {{ $product->category->name }}</span>
                                     </td>
                                     <td style=" text-align:center">
                                         <span class="textFirstName">{{ !empty($product->stock) ? $product->stock : '0.00' }}</span>
@@ -59,19 +58,19 @@
                                                     <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                                                 </svg>
                                             </button>
-                                            <form action="{{$product->id}}/edit" method="GET">
+                                            <form action="{{route('admin.product.edit',$product->id)}}" method="GET">
                                                 <button type="submit" class="btn" data-title="Edit">
                                                     <i class="far fa-edit"></i>
                                                 </button>
                                             </form>
-                                            <button type="button" class="btn paddBto" onclick="deleteUser({{$product->id}})" data-title="Delete">
+                                            <button type="button" class="btn paddBto" onclick="deleteProduct({{$product->id}})" data-title="Delete">
                                                 <i class="fas fa-trash-alt" style="color:red"></i>
                                             </button>
 
                                         </div>
                                     </td>
                                 </tr>
-                                @include('product/partials/actions')
+                                @include('admin.product.partials.actions')
                             @endforeach
                         </tbody>
                         <tfoot>

@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('product.list',compact('products'));
+        return view('admin.product.list',compact('products'));
     }
 
     /**
@@ -33,7 +33,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories=Category::all();
+        return view('admin.product.create',compact('categories'));
     }
 
     /**
@@ -44,8 +45,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->file('product_image')) {
-            $image = $request->file('product_image');
+       // dd($request);
+
+        if ($request->file('product-img')) {
+            $image = $request->file('product-img');
             $type = $image->getClientOriginalExtension();
             $img = date('Y-m-d-H-i-s') .  '.' . $type;
             $image->move('image/product/', $img);
@@ -55,24 +58,37 @@ class ProductController extends Controller
             $product_image = '/dist/img/user2-160x160.jpg';
         }
 
-        $data = [
+       /* $data = [
+            'name'      =>$request->name,
             'description'       =>$request->description,
             'product_image'     =>$product_image,
-            'cost_price'        =>null,
-            'increase'          =>null,
-            'stock'             =>null,
+            'cost_price'        =>$request->price,
+            'increase'          =>$request->increase,
+            'stock'             =>0,
             'enabled'           =>true,
             'user_created'      =>auth()->user()->id,
             'user_updated'      =>auth()->user()->id,
-        ];
-
-        $product = Product::create($data);
+        ];*/
+       // dd($request);
+        $product = Product::create([
+            'name'      =>trim($request->name),
+            'description'       =>trim($request->description),
+            'product_image'     =>trim($product_image),
+            'cost_price'        =>$request->price,
+            'increase'          =>$request->increase,
+            'stock'             =>0,
+            'enabled'           =>true,
+            'category_id'       =>$request->category,
+            'user_created'      =>auth()->user()->id,
+            'user_updated'      =>auth()->user()->id,
+        ]);
         if(!is_null($product)){
+            
             $notification = Notification::Notification('Product Successfully Created', 'success');
-            return redirect('product')->with('notification', $notification);
+            return redirect()->route('admin.product.index')->with('notification', $notification);
         }
         $notification = Notification::Notification('Error', 'error');
-        return redirect('product/create')->with('notification', $notification);
+        return redirect()->route('admin.product.create')->with('notification', $notification);
 
     }
 
@@ -93,9 +109,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories=Category::all();
+       return view('admin.product.edit',compact('product','categories'));
     }
 
     /**
@@ -105,9 +122,16 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        //dd($product);
+        $product->name=$request->name;
+        $product->description=$request->description;
+        $product->cost_price=$request->price;
+        $product->category_id=$request->category;
+        $product->increase=$request->increase;
+        $product->save();
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -116,9 +140,26 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
         //
+        try {
+            DB::beginTransaction();
+           
+            if(!is_null($product)){
+               
+                    $product->delete();
+                    DB::commit();
+                    return ['status' => 200];
+                 
+            };
+            DB::rollBack();
+            return ['status' => 400];
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return ['status' => 400];
+        }
+        
     }
 
     /**

@@ -64,8 +64,13 @@ Route::group([
     /**
      * Rutas para que el administrador gestione los productos
      */
-    Route::get('createProduct','AdminController@index')->name('admin.product.create');
-    Route::get('productList','AdminController@index')->name('admin.product.index');
+    Route::get('create','ProductController@create')->name('admin.product.create');
+    Route::get('productList','ProductController@index')->name('admin.product.index');
+    Route::get('product/{product}/edit','ProductController@edit')->name('admin.product.edit');
+    Route::post('product/store','ProductController@store')->name('admin.product.store');
+    Route::post('product/search','ProductController@searchUser')->name('admin.prodcut.search');
+    Route::get('productDestroy/{idProduct?}','ProductController@destroy')->name('admin.product.destroy');
+    Route::put('product/{product}/update', 'ProductController@update')->name('admin.product.update');
 
     /**
      * Rutas para que el administrador gestione las adquisiciones

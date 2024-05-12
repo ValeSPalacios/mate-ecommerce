@@ -14,12 +14,14 @@ class Product extends Model
 
     protected $table='products';
     protected $fillable=[
+        'name',
         'description',
         'product_image',
         'cost_price',
         'increase',
         'stock',
         'enabled',
+        'category_id',
         'user_created',
         'user_updated',
     ];
