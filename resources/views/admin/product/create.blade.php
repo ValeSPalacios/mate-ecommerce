@@ -37,12 +37,13 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- form start -->
-                <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data" autocomplete="off">
+                <form method="POST" action="{{ route('admin.product.store') }}"
+                id='createForm' 
+                onsubmit="return validateProduct();"
+                enctype="multipart/form-data" autocomplete="off">
                         @csrf
-                        @include('product.partials.form')
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        @include('admin.product.partials.form')
+                        
                 </form>
               </div>
 
