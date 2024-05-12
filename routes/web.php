@@ -57,8 +57,15 @@ Route::group([
     /**
      * Rutas para que el administrador gestione los proveedores
      */
-    Route::get('createProvider','AdminController@index')->name('admin.provider.create');
-    Route::get('providerList','AdminController@index')->name('admin.provider.index');
+    Route::get('createProvider','ProviderController@create')->name('admin.provider.create');
+    Route::get('providerList','ProviderController@index')->name('admin.provider.index');
+    Route::get('provider/{provider}/edit','ProviderController@edit')->name('admin.provider.edit');
+    Route::get('getProvider/{providerId?}','ProviderController@getProviderById')->name('admin.provider.getProvider');
+    Route::post('provider/store','ProviderController@store')->name('admin.provider.store');
+    Route::post('provider/search','ProviderController@searchUser')->name('admin.provider.search');
+    Route::get('providerDestroy/{idProvider?}','ProviderController@destroy')->name('admin.provider.destroy');
+    Route::put('provider/{provider}/update', 'ProviderController@update')->name('admin.provider.update');
+
     //Route::put('{provider}/destroy','AdminController@index')->name('admin.provider.index');
 
     /**

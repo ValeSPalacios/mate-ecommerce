@@ -32,17 +32,16 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create Provider</h3>
+                <h3 class="card-title">Edit Provider</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- form start -->
-                <form method="post" action="{{ route('provider.store') }}" autocomplete="off">
+                <form method="post" action="{{ route('admin.provider.update',$provider->id) }}" autocomplete="off">
                         @csrf
-                        @include('provider.partials.form')
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        @method('put')
+                        @include('admin.provider.partials.form')
+                        
                 </form>
               </div>
 
