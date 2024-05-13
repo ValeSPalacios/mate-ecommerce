@@ -17,17 +17,18 @@ class AddRolePermission extends Seeder
     public function run()
     {
         //
-        Permission::create(['name'=>'users.index']);
-        Permission::create(['name'=>'users.edit']);
-        Permission::create(['name'=>'users.show']);
-        Permission::create(['name'=>'users.create']);
-        Permission::create(['name'=>'users.destroy']);
+        // Permission::create(['name'=>'users.index']);
+        // Permission::create(['name'=>'users.edit']);
+        // Permission::create(['name'=>'users.show']);
+        // Permission::create(['name'=>'users.create']);
+        // Permission::create(['name'=>'users.destroy']);
 
-        Permission::create(['name'=>'products.index']);
-        Permission::create(['name'=>'products.edit']);
-        Permission::create(['name'=>'products.show']);
-        Permission::create(['name'=>'products.create']);
-        Permission::create(['name'=>'products.destroy']);
+        // Permission::create(['name'=>'products.index']);
+        // Permission::create(['name'=>'products.edit']);
+        // Permission::create(['name'=>'products.show']);
+        // Permission::create(['name'=>'products.create']);
+        // Permission::create(['name'=>'products.destroy']);
+        Permission::create(['name'=>'admin.index']);
 
         $rolAdmin=Role::create(['name'=>'Admin']);
         Role::create(['name'=>'Client']);
@@ -40,9 +41,7 @@ class AddRolePermission extends Seeder
             'email'=>'admin@gmail.com',
             'password'=>bcrypt('0123456789')
         ]);
-       $user->assignRole('Admin');
-        
-
+        $user->assignRole('Admin');
 
     }
 }
