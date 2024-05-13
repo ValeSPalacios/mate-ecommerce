@@ -82,8 +82,11 @@ Route::group([
     /**
      * Rutas para que el administrador gestione las adquisiciones
      */
-    Route::get('purchaseCreate','AdminController@index')->name('admin.purchase.create');
-    Route::get('purchaseList','AdminController@index')->name('admin.purchase.index');
+    Route::get('purchaseCreate','PurchaseProductController@create')->name('admin.purchase.create');
+    Route::get('purchaseList','PurchaseProductController@index')->name('admin.purchase.index');
+    Route::post('purchase/store','PurchaseProductController@store')->name('admin.purchase.store');
+    Route::get('purchase/{product}/{provider}/edit','PurchaseProductController@edit')->name('admin.purchase.edit');
+    Route::put('purchase//{product}/update','PurchaseProductController@update')->name('admin.purchase.update');
     
     
     
