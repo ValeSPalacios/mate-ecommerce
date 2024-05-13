@@ -31,22 +31,22 @@
 
                <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
+                  <i class="fa-regular fa-user me-3"></i>
+                  <p class=" text-center">
                     User
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview text-center">
                   <li class="nav-item">
                     <a href="{{ route('admin.user.create') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-user-plus me-3"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('admin.index') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-list me-3"></i>
                       <p>List</p>
                     </a>
                   </li>
@@ -55,22 +55,22 @@
               </li>
                <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="fa-solid fa-store me-3"></i>
                   <p>
                     Provider
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview text-center">
                   <li class="nav-item">
                     <a href="{{ route('admin.provider.create') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-regular fa-handshake me-3"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('admin.provider.index') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-list me-3"></i>
                       <p>List</p>
                     </a>
                   </li>
@@ -79,22 +79,22 @@
               </li>
                <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="fa-solid fa-cubes me-3"></i>
                   <p>
                     Product
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview text-center">
                   <li class="nav-item">
                     <a href="{{ route('admin.product.create') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-boxes-stacked me-3"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('admin.product.index') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-list me-3"></i>
                       <p>List</p>
                     </a>
                   </li>
@@ -103,22 +103,22 @@
               </li>
                <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <i class="fa-solid fa-dolly me-3"></i>
                   <p>
                     Purchase
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview text-center">
                   <li class="nav-item">
                     <a href="{{ route('admin.purchase.create') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-bag-shopping me-3"></i>
                       <p>New</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('admin.purchase.index') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fa-solid fa-list me-3"></i>
                       <p>List</p>
                     </a>
                   </li>
