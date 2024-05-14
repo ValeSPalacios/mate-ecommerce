@@ -75,6 +75,18 @@
 }
 
 
+/*  Register  */
+
+.register-style{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh;
+  }
+}
 
 
 /* ############################################################################## */
