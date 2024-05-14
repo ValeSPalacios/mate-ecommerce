@@ -1,7 +1,7 @@
 <nav class="navbar body">
     
     <div class="container-fluid">
-       <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/">
             <img src="{{asset('img/logos/logo-mate.svg')}}" alt="Logo" width="100" height="100" class="d-inline-block align-text-top">
         </a>
         <div class="d-flex">

@@ -93,6 +93,22 @@
 </div>
 @endsection
 
+
+@if(session()->has('succes_register'))
+    @section('scripts')
+        <script>
+            Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Se ha registrado correctamente",
+            showConfirmButton: false,
+            timer: 1500
+            });
+        </script>
+    @endsection
+@endif
+
+
 @section('footer')
     @include('layouts.footer')
 @endsection
