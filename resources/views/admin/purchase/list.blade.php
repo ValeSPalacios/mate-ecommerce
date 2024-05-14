@@ -9,22 +9,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title titleModule">Purchase List</h3> <a href="{{ route('purchase.create') }}" class="btn float-right colorCyan" role="button">+ Add Purchase</a>
+                    <h3 class="card-title titleModule">Purchase List</h3> <a href="{{ route('admin.purchase.create') }}" class="btn float-right colorCyan" role="button">+ Add Purchase</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="listProvider" class="table table-bordered table-striped">
+                    <table id="listProductProvider" class="table table-bordered table-striped">
 
                         <thead>
                             <tr>
                                 <th style="width:20%; text-align:center">Description</th>
                                 <th style="width:20%; text-align:center">Cost Price</th>
-                                <th style="width:20%; text-align:center">Mobile</th>
+                                <th style="width:20%; text-align:center">Stock</th>
+                                <th style="width:20%; text-align:center">Providers List</th>
                                 <th style="text-align:center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($products as $product)
+                            @foreach ($products as $product)
                                 <tr id='productId_{{$product->id}}'>
                                     <td>
                                         <span class="textFirstName"> {{ $product->description }}</span>
@@ -33,6 +34,21 @@
                                         <span class="textFirstName">{{ !empty($product->cost_price) ? $product->cost_price : '0.00' }}</span>
                                     </td>
 
+                                    <td style=" text-align:center">
+                                        <span class="textFirstName">{{ !empty($product->stock) ? $product->stock : '0' }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select class="form-control" name="product" data-dropdown-css-class="select2-secondary" id="product" style="width: 100%;">
+                                                <option selected="selected" disabled>Select</option>
+                                                @foreach ($product->product_provider as $provider)
+                                                    <option value="{{$provider->id}}">
+                                                        {{ $provider->first_name.' '.$provider->last_name}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <button type="button" class="btn paddBto" data-user="{{$product}}" data-toggle="modal" data-target="#showUser-{{$product->id}}" data-title="View">
@@ -41,20 +57,20 @@
                                                     <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                                                 </svg>
                                             </button>
-                                            <form action="{{$product->id}}/edit" method="GET">
+                                            <form action="{{route('admin.purchase.edit',["product"=>$product->id,"provider"=>$provider->id])}}" method="GET">
                                                 <button type="submit" class="btn" data-title="Edit">
                                                     <i class="far fa-edit"></i>
                                                 </button>
                                             </form>
-                                            <button type="button" class="btn paddBto" onclick="deleteUser({{$product->id}})" data-title="Delete">
+                                            <button type="button" class="btn paddBto" onclick="deletePurchase({{$product->id,$provider->id}})" data-title="Delete">
                                                 <i class="fas fa-trash-alt" style="color:red"></i>
                                             </button>
 
                                         </div>
                                     </td>
                                 </tr>
-                                @include('product/partials/actions')
-                            @endforeach --}}
+                                @include('admin.product.partials.actions')
+                            @endforeach 
                         </tbody>
                         <tfoot>
                             <thead>
