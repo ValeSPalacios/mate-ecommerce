@@ -220,8 +220,16 @@ class UserAdminController extends Controller
             $user = User::find($request->userId);
             if(!is_null($user)){
                 $userData = UserData::where('user_id',$user->id)->first();
+                //Puede darse el caso que el usuario no tenga datos de usuario en 
+                //la tabla dataUser. Por eso, si no tiene un registro en dataUser
+                //sólo elimino al usuario.
+                //Si tiene datos de usuario, elimino al usuario y a sus datos
                 if(!is_null($userData)){
                     $userData->delete();
+                    $user->delete();
+                    DB::commit();
+                    return ['status' => 200];
+                }else{
                     $user->delete();
                     DB::commit();
                     return ['status' => 200];
