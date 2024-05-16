@@ -1,19 +1,28 @@
 {{-- Modal View --}}
-<div class="modal fade" id="showUser-{{$user->id}}"  tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalUser"  tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title colorLabelHeaderModal">User</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" onclick='modalClose()'>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" id="modalUserBody">
 
-
-
-                <div class="card-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                onclick='modalClose()'>Close</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!--        
+                <div class="card-body" >
               
                     <div class="form-group">
                       <label>Username</label>
@@ -43,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label>Avatar</label>
-                        <img src="{{ !empty($user->userdata) ? url($user->userdata->avatar) : asset('dist/img/user2-160x160.jpg') }}" class="elevation-2 userImage" alt="User Image">
+                        <img src="{{ !empty($user->userdata->avatar) ? url($user->userdata->avatar) : asset('dist/img/user2-160x160.jpg') }}" class="elevation-2 userImage" alt="User Image">
                     </div>
                     <div class="form-group">
                       <label>Address</label>
@@ -66,7 +75,7 @@
 
 
 
-                  </div>
+                  </div>-->
                   <!-- /.card-body -->
 
                 {{--   <div class="card-footer">
@@ -80,10 +89,10 @@
 
 
 
-            </div>
-            <div class="modal-footer">
+            <!--</div>-->
+            <!--<div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+            </div>-->
         </div>
     </div>
   </div>

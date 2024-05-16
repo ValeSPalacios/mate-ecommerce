@@ -53,6 +53,7 @@ Route::group([
     Route::get('userDestroy/{user?}','UserAdminController@destroy')->name('admin.user.destroy');
     Route::put('{user}/update', 'UserAdminController@update')->name('admin.user.update');
     Route::get('show','UserAdminController@show')->name('admin.user.show');
+    Route::get('getUser/{userId?}','UserAdminController@getUserById')->name('admin.user.getUser');
 
     /**
      * Rutas para que el administrador gestione los proveedores

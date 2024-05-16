@@ -32,15 +32,19 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create User</h3>
+                <h3 class="card-title text-center">Create User</h3>
               </div>
               <!-- /.card-header -->
 
               <!-- form start -->
+              <!--Quitar o agregar este onsubmit para probar que funcionen los controles del backend
+                onsubmit="return validateForm(true);"-->
               <form method="post" action="{{ route('admin.user.store') }}"
-               onsubmit="return validateForm();" enctype="multipart/form-data" autocomplete="off">
+                enctype="multipart/form-data" autocomplete="off"
+               novalidate>
                     @csrf
                     @include('admin.user.partials.form')
+                    
               </form>
             </div>
             <!-- /.card -->
