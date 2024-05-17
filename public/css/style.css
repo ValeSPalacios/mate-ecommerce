@@ -62,16 +62,17 @@
 
 }
 
+/*  Botón general  */
+.general-btn{
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+}
+
 /*  Login */
 
 .login-style{
   background-color: var(--secondary-color);
   color: var(--primary-color);
-}
-
-.login-btn{
-  background-color: var(--primary-color);
-  color: var(--tertiary-color);
 }
 
 

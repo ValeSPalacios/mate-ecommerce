@@ -32,7 +32,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
-                            <a class="dropdown-item" href="#"> {{ __('Editar Datos') }} </a>
+                            <a class="dropdown-item" href="{{route('userClient.index')}}"> {{ __('Editar Datos') }} </a>
                         </li>
                         <li><a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
