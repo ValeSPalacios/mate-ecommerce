@@ -12,7 +12,7 @@
                     <h3 class="card-title titleModule">Product List</h3> <a href="{{ route('admin.product.create') }}" class="btn float-right colorCyan" role="button">+ Add Product</a>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body table-responsive">
+                <div class="card-body">
                     <table id="listProduct" class="table table-bordered table-striped">
 
                         <thead>
@@ -52,7 +52,7 @@
 
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <button type="button" class="btn paddBto" onclick="showDataProduct({{$product->id}})">
+                                            <button type="button" class="btn paddBto" data-user="{{$product}}" data-toggle="modal" data-target="#showUser-{{$product->id}}" data-title="View">
                                                 <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="#4099D4" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                                                     <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />

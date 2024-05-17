@@ -21,7 +21,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/fontawesome-6.5.2.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
 
 
 
@@ -85,7 +85,7 @@
             @yield('nav')
             @yield('menu')
            
-            <main>
+            <main class="py-4">
                 @yield('content')
             </main>
         </div>

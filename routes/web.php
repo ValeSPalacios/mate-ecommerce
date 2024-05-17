@@ -53,20 +53,12 @@ Route::group([
     Route::get('userDestroy/{user?}','UserAdminController@destroy')->name('admin.user.destroy');
     Route::put('{user}/update', 'UserAdminController@update')->name('admin.user.update');
     Route::get('show','UserAdminController@show')->name('admin.user.show');
-    Route::get('getUser/{userId?}','UserAdminController@getUserById')->name('admin.user.getUser');
 
     /**
      * Rutas para que el administrador gestione los proveedores
      */
-    Route::get('createProvider','ProviderController@create')->name('admin.provider.create');
-    Route::get('providerList','ProviderController@index')->name('admin.provider.index');
-    Route::get('provider/{provider}/edit','ProviderController@edit')->name('admin.provider.edit');
-    Route::get('getProvider/{providerId?}','ProviderController@getProviderById')->name('admin.provider.getProvider');
-    Route::post('provider/store','ProviderController@store')->name('admin.provider.store');
-    Route::post('provider/search','ProviderController@searchUser')->name('admin.provider.search');
-    Route::get('providerDestroy/{idProvider?}','ProviderController@destroy')->name('admin.provider.destroy');
-    Route::put('provider/{provider}/update', 'ProviderController@update')->name('admin.provider.update');
-
+    Route::get('createProvider','AdminController@index')->name('admin.provider.create');
+    Route::get('providerList','AdminController@index')->name('admin.provider.index');
     //Route::put('{provider}/destroy','AdminController@index')->name('admin.provider.index');
 
     /**
@@ -79,16 +71,12 @@ Route::group([
     Route::post('product/search','ProductController@searchUser')->name('admin.prodcut.search');
     Route::get('productDestroy/{idProduct?}','ProductController@destroy')->name('admin.product.destroy');
     Route::put('product/{product}/update', 'ProductController@update')->name('admin.product.update');
-    Route::get('getProduct','ProductController@getProductById')->name('admin.product.getProduct');
 
     /**
      * Rutas para que el administrador gestione las adquisiciones
      */
-    Route::get('purchaseCreate','PurchaseProductController@create')->name('admin.purchase.create');
-    Route::get('purchaseList','PurchaseProductController@index')->name('admin.purchase.index');
-    Route::post('purchase/store','PurchaseProductController@store')->name('admin.purchase.store');
-    Route::get('purchase/{product}/{provider}/edit','PurchaseProductController@edit')->name('admin.purchase.edit');
-    Route::put('purchase//{product}/update','PurchaseProductController@update')->name('admin.purchase.update');
+    Route::get('purchaseCreate','AdminController@index')->name('admin.purchase.create');
+    Route::get('purchaseList','AdminController@index')->name('admin.purchase.index');
     
     
     
