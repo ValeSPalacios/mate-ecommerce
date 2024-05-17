@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserData;
 use App\Http\Requests\UserFormRequest;
 use App\Helpers\Notification;
+use App\Http\Requests\UserAndDataRequest;
 use Exception;
 use Auth;
 use Session;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Validator;
 class UserAdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostará la lista de los usuarios a un usuari administrador, excluyendo al usuario que tiene la sesión activa
      *
      * @return \Illuminate\Http\Response
      */
@@ -35,7 +36,7 @@ class UserAdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo usuario por parte del administrador
      *
      * @return \Illuminate\Http\Response
      */
@@ -53,38 +54,33 @@ class UserAdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo usuario desde el lado del administrador
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Http\Request\UserAndDataRequest $request Una custom request que controla los datos del usuario y los datos de la persona
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserAndDataRequest $request)
     {
      /*     dd($request); */
         try {
             DB::beginTransaction();
-
-
-            $validator = Validator::make($request->all(), [
-                'first_name'        => 'required|between:1,100',
-                'last_name'         => 'required|between:1,100',
-                'email'             => 'required|between:3,64|email',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->back()->withInput();
-            }
-
            /*  echo "mobile --->  ".$request->mobile; */
-            $arrayRemove = array(" " , "(" ,")" , "-");
+            $arrayRemove = array(" " , "(" ,")" , "-","_");
             $mobile = str_replace($arrayRemove,"",$request->mobile);
     /*         echo "<br> mobile --->  ".$mobile;
             echo '<br> dni: '.$request->dni; */
             $dni = str_replace(".","",$request->dni);
            /*  echo '<br> dni: '.$dni;
             dd('stop'); */
+            /*if(strlen($mobile)<10 || strlen($mobile)>10){
+                $errorsArray['mobile']='The mobile must have 10 digits';
+            }  */ 
+            $errorMobile=$this->checkMobile($mobile);
+            //dd($errorMobile);
+            if(strlen($errorMobile)!=0) return back()->withErrors(['mobile'=>$errorMobile])->withInput();
             $role = Role::where('id', $request->role)->first();
             $user = User::create([
-                'name'                  => $request->name,
+                //'name'                  => $request->name,
                 'username'              => $request->username,
                 'email'                 => $request->email,
                 'password'              => Hash::make($request->password),
@@ -148,9 +144,9 @@ class UserAdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar los datos del usuario y de la persona por parte del administrador
      *
-     * @param  int  $id
+     * @param  Http\Model\User $user Es el usuario cuyos datos se van a modificar
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -163,34 +159,77 @@ class UserAdminController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Perite actualizar los datos del usuario por parte del administrador
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Http\Request\UserDataRequest  $request Una custom request que controla los datos del usuario y de la persona
+     * @param  Http\Models\User $user El usuario cuyos datos personales o de usuario se van a modificar
      * @return \Illuminate\Http\Response
      */
-    public function update(UserFormRequest $request, User $user)
+    public function update(UserAndDataRequest $request, User $user)
     {
-       
+       //dd($request);
         try {
             DB::beginTransaction();
 
-            $arrayRemove = array(" ","(",")","-");
+            $arrayRemove = array(" ","(",")","-","_");
+            $arrayRemoveDni=array(".","_");
             $mobile = str_replace($arrayRemove,"",$request->mobile);
-            $dni = str_replace(".","",$request->dni);
+            $dni = str_replace($arrayRemoveDni,"",$request->dni);
+           
+            
 
-            //$user->name = $request->name;
-            $user->username = $request->username;
-            if(!is_null($user->password))$user->password=Hash::make($request->password);
-            $user->save();
+            if ($request->file('avatar')) {
+                $image = $request->file('avatar');
+                $type = $image->getClientOriginalExtension();
+                $img = date('Y-m-d-H-i-s') . '-id-' . $user->id . '.' . $type;
+                $image->move('image/user/', $img);
+
+                $avatar_image = 'image/user/' . $img;
+            } else {
+                $avatar_image = '/dist/img/user2-160x160.jpg';
+            }
+
+            //################# NOTA #######################
+            //Estos controles los hago porque me dan errores al momento de usar en el custom request
+            //una condición de la forma unique:App\Models\User,email,'.auth()->user()->id,',id'
+            //Por ello controlo los errores de esta manera
+
+            
+            //controlo si hay un error en el dni
+            if($request->dni!==$user->dni){
+                $errorMsgDni=$this->checkDni($dni,$user->id);
+            }
+    
+             //controlo si hay un error en el dni, si lo hay, retorno con el error
+            if(strlen($errorMsgDni)!=0) return back()->withErrors(['dni'=>$errorMsgDni]);
+
+
             $userData = UserData::where('user_id',$user->id)->first();
-            $userData->first_name = $request->first_name;
-            $userData->last_name = $request->last_name;
-            $userData->dni = $dni;
-            $userData->address = $request->address;
-            $userData->mobile = $mobile;
-            $userData->date_of_birth = $request->date_of_birth;
-            $userData->save();
+            if(!is_null($userData)){
+                $userData->first_name = $request->first_name;
+                $userData->last_name = $request->last_name;
+                $userData->dni = $dni;
+                $userData->address = $request->address;
+                $userData->mobile = $mobile;
+                $userData->date_of_birth = $request->date_of_birth;
+                $userData->avatar=$avatar_image;
+                $userData->save();
+            }else{
+                $userData=UserData::create(
+                    [
+                        'first_name'=>$request->first_name,
+                        'last_name'=>$request->last_name,
+                        'dni'=>$dni,
+                        'address'=>$request->address,
+                        'mobile'=>$mobile,
+                        'date_of_birth'=>$request->date_of_birth,
+                        'user_id'=>$user->id,
+                        'avatar'=>$avatar_image
+
+                    ]
+                );
+            }
+         
 
             if (!is_null($user && $userData)) {
                 DB::commit();
@@ -208,9 +247,9 @@ class UserAdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Permite eliminar un usuario de parte del administrador
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Response La petición con los datos del usuario a eliminar
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
@@ -247,7 +286,7 @@ class UserAdminController extends Controller
         
     }
      /**
-     * Search the specified resource from storage.
+     * 
      *
      * @param  int  $username
      * @return \Illuminate\Http\Response
@@ -262,7 +301,62 @@ class UserAdminController extends Controller
         }
     }
 
+    /**
+     * Permite recuperar los datos del usuario para mostrarlos
+     * @param \Illuminate\Http\Request $request La petición con los datos necesarios para recuperar al usuario
+     * @return JSON Un archivo json con los datos del usuario
+     */
+    public function getUserById(Request $request){
+      
+        //dd($request);
+        $user=User::with('userdata')->where('id',$request->userId)->first();
+        if(!is_null($user)){
+            $data=[
+                'username'=>$user->username,
+                'email'=>$user->email,
+               
+            ];
+            
+        }else{
+            return ['status'=>400,'msgError'=>'No se encuentra el usuario solicitado'];
+        }
 
+        if(!is_null($user->userdata)){
+            $data['first_name']=$user->userdata->first_name;
+            $data['last_name']=$user->userdata->last_name;
+            $data['dni']=$user->userdata->dni;
+            $data['address']=$user->userdata->address;
+            $data['mobile']=$user->userdata->mobile;
+            $data['avatar']=$user->userdata->avatar;
+        }
+
+        //dd($data);
+        return ['status'=>200,'data'=>json_encode($data)];
+      
+    }
+
+   
+
+
+    /**
+     * Controla que el dni cumpla las condiciones para ser considerado válido
+     * Lo usamos en el update para verificar si el usuario quiere cambiar su dni
+     * @param String $requestDni El dni que se manda por el formulario
+     * @return String Un mensaje de error. Estará vacío si no hay error
+     */
+    private function checkDni(String $requestDni,$userId){
+        $errorMsg='';
+        $user=UserData::select('dni')->where('dni','=',$requestDni)->where('user_id','!=',$userId)->first();
+       // dd($user);
+        if(!is_null($user)) $errorMsg='El dni ingresado ya existe';
+        return $errorMsg;
+    }
+
+    private function checkMobile(String $requestMobile){
+        $errorMsg='';
+        $errorMsg=strlen($requestMobile)<10?'El teléfono debe tener 10 caracteres':'';
+        return $errorMsg;
+    }
 
 
 }

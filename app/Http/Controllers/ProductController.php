@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Helpers\Notification;
+use App\Http\Requests\ProductRequest;
 use Exception;
 use Auth;
 use Session;
@@ -43,7 +44,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
        // dd($request);
 
@@ -74,9 +75,9 @@ class ProductController extends Controller
             'name'      =>trim($request->name),
             'description'       =>trim($request->description),
             'product_image'     =>trim($product_image),
-            'cost_price'        =>$request->price,
+            'cost_price'        =>$request->cost_price,
             'increase'          =>$request->increase,
-            'stock'             =>0,
+            'stock'             =>$request->stocck,
             'enabled'           =>true,
             'category_id'       =>$request->category,
             'user_created'      =>auth()->user()->id,
@@ -122,14 +123,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         //dd($product);
         $product->name=$request->name;
         $product->description=$request->description;
-        $product->cost_price=$request->price;
+        $product->cost_price=$request->cost_price;
         $product->category_id=$request->category;
         $product->increase=$request->increase;
+        $product->stock=$request->stock;
         $product->user_updated=auth()->user()->id;
         $product->save();
         return redirect()->route('admin.product.index');
@@ -141,15 +143,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
         //
+        //dd($request);
         try {
             DB::beginTransaction();
-           
+            $product=Product::find($request->productId);
             if(!is_null($product)){
                
                     $product->delete();
+                    
                     DB::commit();
                     return ['status' => 200];
                  
@@ -181,5 +185,36 @@ class ProductController extends Controller
         };
         //dd($category);
         return view('client.product.showForCategory',compact('products','category','categories'));
+    }
+
+        /**
+     * Permite recuperar los datos de un producto para el usuario
+     * @param \Illuminate\Http\Request $request La petición con los datos necesarios para recuperar el producto
+     * @return JSON Un archivo json con los datos del usuario
+     */
+    public function getProductById(Request $request){
+      
+        //dd($request);
+        $product=Product::with('category')->where('id',$request->productId)->first();
+        if(!Is_null($product)){
+            $data=[
+                'name'=>$product->name,
+                'cost_price'=>$product->cost_price,
+                'increase'=>$product->increase,
+                'stock'=>$product->stock,
+                'category'=>$product->category->name,
+                'product_image'=>$product->product_image,
+                'description'=>$product->description
+            ];
+        }else{
+            return ['status'=>400,'msgError'=>'No se encuentra el producto solicitado'];
+        }
+            
+        
+
+        
+        //dd($data);
+        return ['status'=>200,'data'=>json_encode($data)];
+      
     }
 }
