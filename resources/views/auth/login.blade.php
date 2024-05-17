@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="pt-1 mb-4">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="poppins-regular btn login-btn btn-lg btn-block" type="submit">Ingresar</button>
+                                        <button data-mdb-button-init data-mdb-ripple-init class="poppins-regular btn general-btn btn-lg btn-block" type="submit">Ingresar</button>
                                     </div>
                                     
                                     @if (Route::has('password.request'))
