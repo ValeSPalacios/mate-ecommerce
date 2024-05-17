@@ -79,6 +79,7 @@ Route::group([
     Route::post('product/search','ProductController@searchUser')->name('admin.prodcut.search');
     Route::get('productDestroy/{idProduct?}','ProductController@destroy')->name('admin.product.destroy');
     Route::put('product/{product}/update', 'ProductController@update')->name('admin.product.update');
+    Route::get('getProduct','ProductController@getProductById')->name('admin.product.getProduct');
 
     /**
      * Rutas para que el administrador gestione las adquisiciones
