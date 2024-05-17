@@ -65,7 +65,7 @@
 
                             <div class="pt-1 mb-4">
                                 <div class="col d-flex justify-content-center">
-                                    <button type="submit" class="poppins-regular btn login-btn btn-lg btn-block">
+                                    <button type="submit" class="poppins-regular btn general-btn btn-lg btn-block">
                                         Registrarse
                                     </button>
                                 </div>
