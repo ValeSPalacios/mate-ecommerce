@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
 
-                                <div data-mdb-input-init class="form-outline mb-4"><!--acá-->
+                                <div data-mdb-input-init class="form-outline mb-4">
                                     <input id="password-confirm" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
                                     <label class="poppins-medium form-label" for="password-confirm">Confirmar contraseña</label>
                                 </div>
