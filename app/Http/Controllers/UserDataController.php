@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Http\Requests\UserDataRequest;
 use App\Models\Role;
 use App\Helpers\Notification;
-use App\Models\Category;
 use Exception;
 use Auth;
 use Session;
@@ -32,9 +31,9 @@ class UserDataController extends Controller
         //
         //dd(auth()->user());
         //$user=User::with('userdata')->where('id',auth()->user()->id)->first();
-        $categories=Category::all();
+       
         $userData=UserData::with('user')->where('user_id',auth()->user()->id)->first();
-        return view('userData.edit',compact('userData', 'categories'));
+        return view('userData.edit',compact('userData'));
     }
 
     /**

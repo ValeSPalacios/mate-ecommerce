@@ -6,10 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use App\Helpers\Notification;
-//use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -95,18 +91,5 @@ class RegisterController extends Controller
     {
         $categories=Category::all();
         return view('auth.register',compact('categories'));
-    }
-
-    public function register(Request $request){
-        //dd($request);
-        $user=User::create([
-            'username'=>$request->username,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password)
-        ]);
-        $user->assignRole('Client');
-        //$notification = Notification::Notification('El usuario se ha creado con éxito', 'success');
-        Session::flash('succes_register', 1);
-        return redirect()->route('register');
     }
 }

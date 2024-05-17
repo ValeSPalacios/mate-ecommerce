@@ -31,12 +31,12 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title text-center">Update User</h3>
+              <h3 class="card-title">Create User</h3>
             </div>
             <!-- /.card-header -->
 
             <!-- form start -->
-            <form method="POST" action="{{ route('admin.user.update',$user->id) }}" onsubmit="return validateForm(false);" 
+            <form method="POST" action="{{ route('admin.user.update',$user->id) }}" onsubmit="return validateForm();" 
               enctype="multipart/form-data" autocomplete="off">
                   @method('PUT')
                   @csrf

@@ -23,12 +23,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(!auth()->check() || (auth()->check() && auth()->user()->roles[0]->id==2)){
+        
+        
+        if(!auth()->check()){
             $categories=Category::all();
             //dd($categories);
             return view('welcome',compact('categories'));
+        }
+        else if(auth()->check() && auth()->user()->roles[0]->id==2){
+            return redirect()->route('userClient.index');
+        
         }else if(auth()->check() && auth()->user()->roles[0]->id==1){
             return redirect()->route('admin.index');
         }
+       
     }
 }
