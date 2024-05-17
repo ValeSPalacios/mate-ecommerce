@@ -1,11 +1,99 @@
+.body {
+  background-color: var(--tertiary-color)!important;
+  color: var(--primary-color)!important;
+
+}
+
+/*  Text style  */
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+/*  Logo nav  */
+.logo-navbar-nav li a:hover, .logo-navbar-nav li.active a {
+  color: var(--tertiary-color) !important;
+  background-color: var(--primary-color) !important;
+}
+
+/*  Navbar  */ 
+.navGuestBar{
+  background-color: var(--tertiary-color);
+}
+
+.nav-tabs .nav-item .nav-link {
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
+}
+
+.nav-tabs .nav-item .nav-link.active{
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+}
+
+/*  Footer  */
+
+.footer-style{
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
+}
+
+.footer-icon {
+  color: var(--secondary-color);
+
+}
+
+/*  Login */
+
+.login-style{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.login-btn{
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+}
+
+
+/*  Register  */
+
+.register-style{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh;
+  }
+}
+
+
+/* ############################################################################## */
 /* custom style */
 
 .customFileLabelAvatar::after {
     content: "Avatar" !important;
-}
-
-.product-img::after{
-  content:'Product' !important;
 }
 
 .userImage {
@@ -29,12 +117,6 @@
 .countCart{
     border: 1px solid grey;
     width: 44px;
-}
-
-/*Estilos para la barra de navegación*/
-.backColor{
-    background-color: var(--first-dark);
-   
 }
 
 .colorLetter{
@@ -61,12 +143,6 @@
 }
 
 /*Estilos generales*/
-body{
- 
-    background-color:var(--color-grey)!important;
-    font-family: "Space Grotesk", 'Times New Roman', Times, serif;
-      
-  }
   a{
       cursor: pointer;
       text-decoration: none;
@@ -78,27 +154,7 @@ body{
   ul{
     list-style:none!important;
   }
-  
-  .optionBar{
-      background-color: var(--first-dark);
-      border: none;
-      
-  }
-  
-  .hamburgerBtn{
-    background-color: var(--first-grey);
-    color:var(--first-dark);
-    
-  }
-  
-  .hamburguerIcon{
-    width:50px;
-  }
-  
-  
-  #navGuestBar{
-    background-color: var(--first-dark);
-  }
+
   .optionBar a{
     color:var(--first-grey);
    
@@ -124,13 +180,4 @@ body{
   
   
 
-  
-  
-    .footer-color{
-      background-color:var(--color-fondo-pie)!important;
-    }
-  
-    .footer-color li{
-      list-style-type: none;
-    }
   

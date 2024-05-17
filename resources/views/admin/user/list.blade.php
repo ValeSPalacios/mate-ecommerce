@@ -12,7 +12,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title titleModule">User List</h3> <a href="{{ route('admin.user.create') }}" class="btn float-right colorCyan" role="button">+ Add User</a>
+                    <h3 class="card-title titleModule mt-2">User List</h3> <a href="{{ route('admin.user.create') }}" 
+                    class="btn float-right colorCyan" role="button">+ Add User</a>
+                     <a href="{{ route('admin.user.edit',auth()->user()->id) }}" 
+                    class="btn float-right colorCyan" role="button">+ Modify Own Data</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -21,7 +24,6 @@
                         <thead>
                             <tr>
                                 <th style="width:15%; text-align:center">Avatar</th>
-                                <th style="width:15%; text-align:center">Name</th>
                                 <th style="width:15%; text-align:center">UserName</th>
                                 <th style="width:10%; text-align:center">Type</th>
                                 <th style="width:15%; text-align:center">Email</th>
@@ -34,14 +36,9 @@
                                 <tr id='userId_{{$user->id}}'>
                                     <td style="text-align: center">
                                         @if(!empty($user->userdata))
-                                            <img src="{{ url($user->userdata->avatar) }}" class="elevation-2 userImage" alt="User Image">
+                                            <img src="{{!empty($user->userdata->avatar)?url($user->userdata->avatar):'' }}" class="elevation-2 userImage" alt="User Image">
                                         @else
                                             <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="elevation-2 userImage" alt="User Image">
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(($user) && ($user->name))
-                                            <span class="textFirstName"> {{ $user->name }}</span>
                                         @endif
                                     </td>
                                     <td style=" text-align:center">
@@ -49,15 +46,21 @@
                                             <span class="textFirstName">{{ $user->username }}</span>
                                         @endif
                                     </td>
+                                    @if(!empty($user->roles))
                                     <td style=" text-align:center">
-                                        @if(!empty($user->roles))
-                                            @foreach ($user->roles as $itemRole)
+                                        
+                                            @forelse ($user->roles as $itemRole)
                                                 <span class="textFirstName">{{ $itemRole->name }}</span>
-                                            @endforeach
-                                        @else
-                                            -
-                                        @endif
+                                            @empty
+                                                    -   
+                                            @endforelse 
+                                                
+                                          
+                                      
+                                           
+                                        
                                     </td>
+                                    @endif
                                     <td style=" text-align:center">
                                         @if(!empty($user->email))
                                             <span class="textFirstName">{{ $user->email }}</span>
@@ -70,14 +73,14 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <button type="button" class="btn paddBto" data-user="{{$user}}" data-toggle="modal" data-target="#showUser-{{$user->id}}" data-title="View">
+                                            <button type="button" class="btn paddBto" onclick='showDataUser({{$user->id}})'>
                                                 <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="#4099D4" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                                                     <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
                                                 </svg>
                                             </button>
                                             {{-- <button type="button" onclick="showUser({{$user->id}})"></button> --}}
-                                            <form action="{{$user->id}}/edit" method="GET">
+                                            <form action="{{route('admin.user.edit',$user->id)}}" method="GET">
                                                 <button type="submit" class="btn" data-title="Edit">
                                                     <i class="far fa-edit"></i>
                                                 </button>
@@ -96,7 +99,6 @@
                             <thead>
                                 <tr>
                                     <th style="width:15%; text-align:center">Avatar</th>
-                                    <th style="width:15%; text-align:center">Name</th>
                                     <th style="width:15%; text-align:center">UserName</th>
                                     <th style="width:10%; text-align:center">Type</th>
                                     <th style="width:15%; text-align:center">Email</th>
