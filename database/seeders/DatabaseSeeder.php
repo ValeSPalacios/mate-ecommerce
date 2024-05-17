@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //User en el orden mostrado para evtiar errores
-        //\App\Models\User::factory(10)->create();
-        $this->call(AddRolePermission::class);
-        $this->call(AddCategories::class);
-        // $this->call(AddProducts::class);
-        // $this->call(AddProviders::class);
-        // $this->call(AddProvidersProduct::class);
+        // \App\Models\User::factory(10)->create();
+       // $this->call(AddRolePermission::class);
+        //$this->call(AddCategories::class);
+        //$this->call(AddProducts::class);
+        //$this->call(AddProviders::class);
+        ////$this->call(AddProviderProduct::class);
     }
 }
