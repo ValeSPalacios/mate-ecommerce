@@ -39,7 +39,7 @@
                 <!-- form start -->
                 <form method="post" action="{{ route('admin.product.update',$product->id) }}"
                  id="updateForm"
-                  
+                  onsubmit="return validateUpdateProduct({{$product}})"
                   enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         @method('put')

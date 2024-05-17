@@ -31,18 +31,15 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-              <div class="card-header  text-center">
-                <h3 class="card-title">Create Product</h3>
+              <div class="card-header">
+                <h3 class="card-title">Create Provider</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- form start -->
-                <!-- onsubmit="return validateProduct();"-->
-                <form method="POST" action="{{ route('admin.product.store') }}"
-                id='createForm' enctype="multipart/form-data" onsubmit="return validateCreateProduct()"
-                autocomplete="off">
+                <form method="post" action="{{ route('admin.provider.store') }}" autocomplete="off">
                         @csrf
-                        @include('admin.product.partials.form')
+                        @include('admin.provider.partials.form')
                         
                 </form>
               </div>
@@ -66,5 +63,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/modules/product/forms.js') }}"></script>
+    <script src="{{ asset('js/modules/provider/forms.js') }}"></script>
 @endsection
