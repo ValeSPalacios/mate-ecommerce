@@ -54,7 +54,7 @@ class AddProducts extends Seeder
         Product::create([
             'name'=>'Mate Uruguayo Virola Acero',
             'description'=>'Mate de calabaza uruguayo,
-                con virola de acero (ideal para grabar) forrado en cuero y base reforzada.',
+                con virola de acero (ideal para grabar) forrado en cuero y base reforzada',
             'product_image'=>'image/product/uruguayo.webp',
             'cost_price'=>1500,
             'increase'=>3,
@@ -66,7 +66,7 @@ class AddProducts extends Seeder
         Product::create([
             'name'=>'Mate Super Imperial de Alpaca',
             'description'=>'Mate Super Imperial de calabaza forrado en cuero con virola,
-                fleje y base de alpaca.',
+                fleje y base de alpaca',
             'product_image'=>'image/product/imperial-alpaca.webp',
             'cost_price'=>1500,
             'increase'=>2,
@@ -89,8 +89,8 @@ class AddProducts extends Seeder
         ]);
         Product::create([
             'name'=>'Mate Imperial Pvc Calabaza',
-            'description'=>'Mate Imperial de Calabaza seleccionada,
-                revestido de PVC alto impacto imitación cuero. Con virola de Aluminio labrado.',
+            'description'=>'Mate Imperial de Calabaza,
+                revestido de PVC alto impacto',
             'product_image'=>'image/product/imperpial-pvc.webp',
             'cost_price'=>3100,
             'increase'=>1,
@@ -100,7 +100,7 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Mate Brasilero',
+            'name'=>'Mate Brasilero con Virola',
             'description'=>'Mate de calabaza brasilera forrado en PVC',
             'product_image'=>'image/product/brasilero.webp',
             'cost_price'=>3722,
