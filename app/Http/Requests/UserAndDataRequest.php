@@ -29,7 +29,7 @@ class UserAndDataRequest extends FormRequest
                 'first_name'        => 'required|between:1,255',
                 'last_name'         => 'required|between:1,255',
                 'address'=>'required|between:1,200',
-                'dni'=>'required|regex:/^([0-9]{2}).[0-9]{3}.[0-9]{3}$/i',
+                //'dni'=>'required|regex:/^([0-9]{2}).[0-9]{3}.[0-9]{3}$/i|unique:App\Models\UserData,dni,'.$this->id,',id',
                 'mobile'=>'required',
                 'date_of_birth'=>'required'
 

@@ -74,12 +74,23 @@
         </div>
 
         <div class="col-md-6">
+            @if (empty($user))
             <div class="form-group">
                 <label for="dni" class="dni">DNI</label>
                 <input type="text" class="form-control maskDNI" name="dni" id="dni" placeholder="DNI" 
                 data-inputmask='"mask": "99.999.999"' data-mask  
                 value="{{ !empty($user->userdata) ? $user->userdata->dni : old('dni') }}">
               </div>
+            @else
+            <div class="form-group">
+                <label for="dni" class="dni">DNI</label>
+                <p class="alert alert-success text-center p-1">
+                    {{$user->userdata->dni}}
+                </p>
+            </div>
+               
+            @endif
+           
               @if($errors->has('dni'))
               <p class="text-danger">{{ $errors->first('dni') }}</p>
       @endif
