@@ -59,13 +59,13 @@
                 <div data-mdb-input-init class="form-outline">
                     <input type="email" class="form-control form-control-lg" name="email" id="email" 
                     onblur="validateEmail(this.value)" {{-- onchange="searchUsername(this.value)" --}}  
-                    value="{{ !empty($userData->user->email) ? $userData->user->email : '' }}" {{ !empty($userData->user->email) ? 'disabled' : ''}}>
+                    value="{{ !empty($userData->user->email) ? $userData->user->email : auth()->user()->email }}" disabled>
                     @if($errors->has('email'))
                         <p class="text-danger">{{ $errors->first('email') }}</p>
                     @endif
                     <label for="email" class="email">Correo electrónico</label>
                     <p class="text-success">
-                        {{!empty($userData->user->email) ? $userData->user->email : '' }}
+                        {{!empty($userData->user->email) ? $userData->user->email : auth()->user()->email }}
                     </p>
                 </div>
             </div>
@@ -100,7 +100,8 @@
             <div class="col-md-6">
                 @if (!empty($userData->avatar))
                     <div class="form-group">
-                        <img src="{{ url($userData->avatar) }}" class="elevation-2 userImage form-control-lg" alt="User Image">
+                        <img src="{{ url($userData->avatar) }}" class="elevation-2 userImage form-control-lg" alt="User Image"
+                        width="150px" height="150px">
                         <label for="avatar" class="avatar">Foto de perfil</label>
                     </div>
                 @else
@@ -108,9 +109,15 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input form-control-lg" name="avatar" id="avatar">
-                                <label class="custom-file-label customFileLabelAvatar" for="avatar" class="a">Foto de perfil</label>
+                                <label class="custom-file-label customFileLabelAvatar a" for="avatar">Foto de perfil</label>
+                               
                             </div>
+                           
                         </div>
+                        <label id="avatarNameFile" for="avatar"></label>
+                        @if($errors->has('avatar'))
+                                <p class="text-danger">{{ $errors->first('avatar') }}</p>
+                            @endif
                     </div>
                 @endif
             </div>
@@ -122,3 +129,4 @@
         </div>
     </form>
 </div>
+

@@ -50,6 +50,7 @@ Route::group([
    
     Route::get('show','UserDataController@index')->name('userClient.index');
     Route::put('update','UserDataController@update')->name('userClient.update');
+    Route::post('store','UserDataController@store')->name('userClient.store');
     Route::post('addCart','CartController@store')->name('cart.store');
     Route::get('indexCart','CartController@index')->name('cart.index');
     Route::post('cartStore','CartController@store')->name('cart.store');

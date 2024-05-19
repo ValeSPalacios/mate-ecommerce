@@ -5,6 +5,15 @@ $(document).ready(function(){
     $('[data-mask]').inputmask()
    /*  $('.name')
     $('#name') */
+   
+    //Permite mostrar el nombre de la imagen cuando actualizamos los datos
+    //del usuario cliente desde su vista
+    /*document.getElementById('avatar').addEventListener('change',(e)=>{
+       const labelDataImg= document.getElementById("avatarNameFile")
+       console.log(e.target.files[0]);
+        labelDataImg.innerText=e.target.files[0].name;
+       
+})*/
 });
 
 /**
