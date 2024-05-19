@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         //\App\Models\User::factory(10)->create();
         $this->call(AddRolePermission::class);
         $this->call(AddCategories::class);
-        // $this->call(AddProducts::class);
+        $this->call(AddProducts::class);
         // $this->call(AddProviders::class);
         // $this->call(AddProvidersProduct::class);
     }

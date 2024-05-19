@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\Notification;
+use App\Http\Requests\UserFormRequest;
 //use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -91,13 +92,21 @@ class RegisterController extends Controller
         return $user;
     }
 
+    /**
+     * Muestra el formulario de registro. Se modificó para que, en caso de ser necesario,
+     * se muestren las listas de categorías
+     */
     public function showRegistrationForm()
     {
         $categories=Category::all();
         return view('auth.register',compact('categories'));
     }
 
-    public function register(Request $request){
+    /**
+     * El método que permite al usuario registrarse satisfactoriamente
+     * @param Http\Request\UserFormRequest $request La petición para el registro
+     */
+    public function register(UserFormRequest $request){
         //dd($request);
         $user=User::create([
             'username'=>$request->username,

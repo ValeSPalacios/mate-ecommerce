@@ -7,14 +7,15 @@
 
   <!-- Main content -->
   <section>
-    <div class="container-fluid">
-      <div class="row">
+    <div class="container-fluid products-style py-4">
+      <h3 class="poppins-semibold p-4 mb-4">Productos relacionados</h3>
+      <div class="row justify-content-around">
         <!-- left column -->
-        <div class="col-md-12">
+        <div class="col-12 justify-content-around">
           <!-- general form elements -->
             <!-- /.card-header -->
-            <div class="container">
-              <div class="row">
+            <div class="container justify-content-around">
+              <div class="row justify-content-around">
                 @foreach ($products as $product)
                   @include('client.product.partials.productCard') 
                 @endforeach
@@ -36,7 +37,7 @@
     </div><!-- /.container-fluid -->
 
     <!--Código para la paginación-->
-    <div class="d-flex justify-content-center">
+    <div class="d-flex products-style justify-content-center pb-4">
       {{ $products->links() }}
     </div>
    

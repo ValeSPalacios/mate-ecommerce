@@ -74,7 +74,7 @@
                                                 {{ __('¿Olvidaste la contraseña?') }}
                                             </a>
                                     @endif
-                                    <p class="poppins-light mb-5 pb-lg-2" style="color: #393f81;">¿No tienes una cuenta? <a href="#!"
+                                    <p class="poppins-light mb-5 pb-lg-2" style="color: #393f81;">¿No tienes una cuenta? <a href="{{route('register')}}"
                                         style="color: #393f81;">Regístrate aquí</a></p>
                                 </form>
 

@@ -1,7 +1,6 @@
 .body {
   background-color: var(--tertiary-color)!important;
   color: var(--primary-color)!important;
-
 }
 
 /*  Text style  */
@@ -62,7 +61,6 @@
 
 }
 
-
 /*  Botón general  */
 .general-btn{
   background-color: var(--primary-color);
@@ -90,12 +88,27 @@
   }
 }
 
-
-/*  Edit User  */
+/*  Edith User  */
 .edit-user-style{
   background-color: var(--secondary-color);
   color: var(--primary-color);
-  border-radius: 15px;
+}
+
+/*  Reset Password  */
+.reset-password{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/*  Products  */
+.products-style{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.count-products{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 /* ############################################################################## */
