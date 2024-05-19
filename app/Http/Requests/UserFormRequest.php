@@ -34,10 +34,10 @@ class UserFormRequest extends FormRequest
 
 
             return [
-                'first_name'        => 'required|between:1,100',
+                'username'        => 'required|between:4,64|unique:App\Models\User,username',
                 'email'             => 'required|between:3,64|email|unique:App\Models\User,email',
-                'last_name'         => 'required|between:1,255',
-                'role'              => 'required|integer|not_in:0',
+                'password'         => 'required|between:8,64|same:password-confirm',
+                'password-confirm'              => 'required|between:8,64|same:password',
 
             ];
     }
@@ -45,24 +45,26 @@ class UserFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required'       =>  'The :attribute is required',
-            'first_name.between'        =>  'The :attribute is required',
-            'last_name.required'        =>  'The :attribute is required',
-            'last_name.between'         =>  'The :attribute is required',
-            'role.required'             =>  'The :attribute is required',
-            'role.not_in'               =>  'The :attribute is not null',
+            'username.required'       =>  'The :attribute is required',
+            'username.between'        =>  'The :attribute must be between 4 and 64 characters',
+            'password.required'        =>  'The :attribute is required',
+            'password.between'         =>  'The :attribute must be between 8 and 64 characters',
             'email.unique'              => 'The :attribute exist',
             'email.required'            => 'The :attribute is required',
+            'password-confirm.require' =>'The passwords must match',
+            'password-confirm.same' =>'The passwords must match',
+            'password-confirm.between'         =>  'The :attribute must be between 8 and 64 characters',
+            'password.same' =>'The passwords must match',
         ];
     }
 
     public function attributes()
     {
         return [
-            'first_name'                => 'First Name',
+            'username'                => 'Username',
             'email'                     => 'Email',
-            'last_name'                 => 'Last Name',
-            'role'                 => 'Select User Account Type',
+            'password'                 => 'Password',
+            'password-confirm'                 => 'Confirmation',
         ];
     }
 }
