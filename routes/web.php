@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\AdminRoleMiddleware;
+use App\Http\Middleware\GuestRoleMiddleware;
+use App\Http\Middleware\ClientUserRoleMiddleware;
+use App\Http\Middleware\GuestAndClientRoleMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,17 +17,34 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+/**
+ * Las rutas para ir a las páginas de inicio de cada rol.
+ * Uso ambas porque algunas acciones, como las de logueo, redireccionan a
+ * http://127.0.0.1:8000/ y para no cambiarla, utilizo ambas
+ */
+Route::get('/home','HomeController@index')->name('index');
 Route::get('/','HomeController@index')->name('index');
 
+//El reseteo de contraseña sólo se permitirá al usuario que no inició sesión
 Route::get('/password/resetCustom/{token}', 'Auth\ForgotPasswordController@passwordReset')
+->middleware(GuestRoleMiddleware::class)
 ->name('passwordReset');
 Auth::routes();
+
+//Lo mismo para realizar la actualización del password. Sólo al que no inició sesión
 Route::post('/password/reset', 'Auth\ForgotPasswordController@passwordUpdate')
+->middleware(GuestRoleMiddleware::class)
 ->name('password.update');
-Route::get('showForCategory/{id_category}','ProductController@showToClient')->name('showProduct');
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Sólo el visitante y el cliente pueden ver los productos para agregar al carrito
+//El administrador no.
+Route::get('showForCategory/{id_category}','ProductController@showToClient')
+ ->middleware(GuestAndClientRoleMiddleware::class)
+->name('showProduct');
+
+//Aquí sólo acceden los clientes
 Route::group([
-    'middleware'    =>  ['auth'],
+    'middleware'    =>  ['auth',ClientUserRoleMiddleware::class],
     'prefix'        =>  'userClient'
 ],function(){
    
@@ -36,9 +57,9 @@ Route::group([
 
 });
 
-
+//Aquí sólo acceden los administradores
 Route::group([
-    'middleware'    =>  ['auth'],
+    'middleware'    =>  ['auth',AdminRoleMiddleware::class],
     'prefix'        =>  'admin'
 ],function(){
    
