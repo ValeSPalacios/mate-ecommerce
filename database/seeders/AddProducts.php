@@ -52,9 +52,10 @@ class AddProducts extends Seeder
         ]);*/
 
         Product::create([
-            'name'=>'Producto X',
-            'description'=>'Producto nueva prueba 1',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate Uruguayo Virola Acero',
+            'description'=>'Mate de calabaza uruguayo,
+                con virola de acero (ideal para grabar) forrado en cuero y base reforzada.',
+            'product_image'=>'image/product/uruguayo.webp',
             'cost_price'=>1500,
             'increase'=>3,
             'stock'=>500,
@@ -63,9 +64,10 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Producto Y',
-            'description'=>'Producto nuevo de prueba Y',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate Super Imperial de Alpaca',
+            'description'=>'Mate Super Imperial de calabaza forrado en cuero con virola,
+                fleje y base de alpaca.',
+            'product_image'=>'image/product/imperial-alpaca.webp',
             'cost_price'=>1500,
             'increase'=>2,
             'stock'=>250,
@@ -74,20 +76,10 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Producto Z',
-            'description'=>'Producto siempre de prueba Z',
-            'product_image'=>'image/product/mate1.jpeg',
-            'cost_price'=>2000,
-            'increase'=>3,
-            'stock'=>350,
-            'category_id'=>1,
-            'user_created'=>1,
-            'user_updated'=>1
-        ]);
-        Product::create([
-            'name'=>'Producto XZ',
-            'description'=>'Producto prueba ZX nuevo',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate Palo Santo Base',
+            'description'=>'Mate de Madera Palo Santo pulido y Lustrado con Base de aluminio. 
+                La madera de palo tiene un sabor y aroma',
+            'product_image'=>'image/product/palo-santo.webp',
             'cost_price'=>1700,
             'increase'=>3,
             'stock'=>450,
@@ -96,9 +88,10 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Producto Nuvo WZ',
-            'description'=>'Producto prueba WZ',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate Imperial Pvc Calabaza',
+            'description'=>'Mate Imperial de Calabaza seleccionada,
+                revestido de PVC alto impacto imitación cuero. Con virola de Aluminio labrado.',
+            'product_image'=>'image/product/imperpial-pvc.webp',
             'cost_price'=>3100,
             'increase'=>1,
             'stock'=>720,
@@ -107,9 +100,9 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Producto Super Nuevo ZX',
-            'description'=>'Producto con un comentario super nuevo ZX',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate Brasilero',
+            'description'=>'Mate de calabaza brasilera forrado en PVC',
+            'product_image'=>'image/product/brasilero.webp',
             'cost_price'=>3722,
             'increase'=>3,
             'stock'=>80,
@@ -118,20 +111,9 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Producto Simple',
-            'description'=>'Producto nuevo simple por siempre',
-            'product_image'=>'image/product/mate1.jpeg',
-            'cost_price'=>12000,
-            'increase'=>2,
-            'stock'=>430,
-            'category_id'=>1,
-            'user_created'=>1,
-            'user_updated'=>1
-        ]);
-        Product::create([
-            'name'=>'Pabc def ghi',
-            'description'=>'Producto nuevo simple por siempre',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate y termo 1L',
+            'description'=>'Termo de acero 1lt forrado + Mate de madera calden. Ambos Forrados',
+            'product_image'=>'image/product/termo-mate-1.webp',
             'cost_price'=>12000,
             'increase'=>2,
             'stock'=>430,
@@ -140,13 +122,24 @@ class AddProducts extends Seeder
             'user_updated'=>1
         ]);
         Product::create([
-            'name'=>'Producto WWF',
-            'description'=>'Producto prueba WWF',
-            'product_image'=>'image/product/mate1.jpeg',
+            'name'=>'Mate y Termo de 1L',
+            'description'=>'Termo de acero 1lt forrado + Mate de madera calden. Ambos Forrados',
+            'product_image'=>'image/product/termo-mate-2.webp',
+            'cost_price'=>12000,
+            'increase'=>2,
+            'stock'=>430,
+            'category_id'=>2,
+            'user_created'=>1,
+            'user_updated'=>1
+        ]);
+        Product::create([
+            'name'=>'Mate y Termo - 1L',
+            'description'=>'Termo de acero 1lt forrado + Mate de madera calden',
+            'product_image'=>'image/product/termo-mate-3.webp',
             'cost_price'=>2450,
             'increase'=>2,
             'stock'=>507,
-            'category_id'=>1,
+            'category_id'=>2,
             'user_created'=>1,
             'user_updated'=>1
         ]);

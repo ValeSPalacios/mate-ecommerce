@@ -100,6 +100,12 @@
   color: var(--primary-color);
 }
 
+/*  Products  */
+.products-style{
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
 /* ############################################################################## */
 /* custom style */
 
