@@ -18,7 +18,7 @@ class CreateUsersDataTable extends Migration
             $table->unsignedbigInteger('user_id');
             $table->string('first_name',100);
             $table->string('last_name',100);
-            $table->string('dni',8);
+            $table->string('dni',8)->unique();
             $table->string('avatar',400)->nullable();
             $table->string('address',200);
             $table->string('mobile')->nullable();
