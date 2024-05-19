@@ -8,19 +8,21 @@
 function commonValidates($product=null, action = "create") {
     let flag = true;
     let errorMsg = [];
-    const price = $("#cost_price");
-    const increase = $("#increase");
-    const name = $("#name");
-    const stock = $("#stock");
-    const description = $("#description");
+   
+    const price =document.getElementById('cost_price'); 
+    const increase = document.getElementById('increase');
+    const name = document.getElementById('name');
+    const stock = document.getElementById('stock');
+    const description = document.getElementById('description');
     resetErrors();
-    if ($("#name").val() == "") {
+    console.log(name.value);
+    if (name.value == "") {
         flag = chekedInputOrFields("name");
         errorMsg.push({"errorTag":'errorName',"msg":"El nombre no debe estar vacío"});
         action != "create" ? redoTheOriganValue(name, $product["name"]) : "";
     }
 
-    if (!isFloatNotNegative(price.val())) {
+    if (!isFloatNotNegative(price.value)) {
         flag = chekedInputOrFields("price");
         errorMsg.push({"errorTag":'errorPrice',"msg":"El precio debe ser mayor a cero"});
         action != "create"
@@ -28,7 +30,7 @@ function commonValidates($product=null, action = "create") {
             : "";
     }
 
-    if (!isIntegerNotNegative(increase.val())) {
+    if (!isIntegerNotNegative(increase.value)) {
         flag = chekedInputOrFields("increase");
         errorMsg.push({"errorTag":'errorIncrease',"msg":"El incremento debe ser mayor o igual a 1"});
       
@@ -37,7 +39,7 @@ function commonValidates($product=null, action = "create") {
             : "";
     }
 
-    if (!isIntegerEqOrGtZero(stock.val())) {
+    if (!isIntegerEqOrGtZero(stock.value)) {
         flag = chekedInputOrFields("stock");
         errorMsg.push({"errorTag":'errorStock',"msg":"El stock debe ser mayor o igual a 0"});
         action != "create" ? redoTheOriganValue(stock, $product["stock"]) : "";
@@ -45,8 +47,7 @@ function commonValidates($product=null, action = "create") {
 
     /* if ($('#first_name').val() == "")
 flag = chekedInputOrFields("first_name"); */
-
-    if (description.val() == "") {
+    if (description.value == "") {
         flag = chekedInputOrFields("description");
         errorMsg.push({"errorTag":'errorDescription',"msg":"Debe colocarse la descripción"});
         
@@ -65,6 +66,7 @@ flag = chekedInputOrFields("first_name"); */
 function validateCreateProduct() {
 
     try {
+        
         let flag = true;
         let data = commonValidates();
         resetErrors();
@@ -102,10 +104,10 @@ function validateCreateProduct() {
  * @returns {Boolean} Retorna true en caso que no haya errores, y retorna false en caso contrario
  */
 function validateUpdateProduct($product) {
+    
     try {
-
         const data = commonValidates($product, "update");
-        removeErrors();
+        resetErrors();
         if (!data.flag) showErrors(data.msgErrors);
         return data.flag;
     } catch (error) {
@@ -193,7 +195,7 @@ function resetErrors(){
  * @param {String} value El valor antiguo del producto que será recolocado en el input
  */
 function redoTheOriganValue(inputTag, value) {
-    inputTag.val(value);
+    inputTag.value=value;
 }
 
 /**

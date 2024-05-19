@@ -40,7 +40,8 @@
                 <!-- onsubmit="return validateProduct();"-->
                 <form method="POST" action="{{ route('admin.product.store') }}"
                 id='createForm' enctype="multipart/form-data" onsubmit="return validateCreateProduct()"
-                autocomplete="off">
+                autocomplete="off"
+                >
                         @csrf
                         @include('admin.product.partials.form')
                         

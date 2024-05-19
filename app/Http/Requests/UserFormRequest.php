@@ -28,7 +28,7 @@ class UserFormRequest extends FormRequest
             return [
                 'first_name'        => 'required|between:1,255',
                 'last_name'         => 'required|between:1,255',
-                //'email'             => 'required|between:3,64|email|unique:App\Models\User,email,'.$this->user->id,',id',
+                
             ];
         }
 

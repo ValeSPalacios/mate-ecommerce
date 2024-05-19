@@ -15,6 +15,7 @@ use Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\ControlUserAndUserData;
 
 
 /**
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserAdminController extends Controller
 {
+    use ControlUserAndUserData;
     /**
      * Mostará la lista de los usuarios a un usuari administrador, excluyendo al usuario que tiene la sesión activa
      *
@@ -65,19 +67,15 @@ class UserAdminController extends Controller
         try {
             DB::beginTransaction();
            /*  echo "mobile --->  ".$request->mobile; */
-            $arrayRemove = array(" " , "(" ,")" , "-","_");
-            $mobile = str_replace($arrayRemove,"",$request->mobile);
-    /*         echo "<br> mobile --->  ".$mobile;
-            echo '<br> dni: '.$request->dni; */
-            $dni = str_replace(".","",$request->dni);
-           /*  echo '<br> dni: '.$dni;
-            dd('stop'); */
-            /*if(strlen($mobile)<10 || strlen($mobile)>10){
-                $errorsArray['mobile']='The mobile must have 10 digits';
-            }  */ 
-            $errorMobile=$this->checkMobile($mobile);
+            
+            $mobile = $this->removeMaskMobile($request->mobile);
+            $dni = $this->removeMaskDni($request->dni);
+           
+            $errors=$this->checkMobileAndDni($mobile,$dni);
+            if(count($errors)>0) return redirect()->back()->withInput()->withErrors($errors);
             //dd($errorMobile);
-            if(strlen($errorMobile)!=0) return back()->withErrors(['mobile'=>$errorMobile])->withInput();
+            
+            //creo el rol y el usuario
             $role = Role::where('id', $request->role)->first();
             $user = User::create([
                 //'name'                  => $request->name,
@@ -85,6 +83,8 @@ class UserAdminController extends Controller
                 'email'                 => $request->email,
                 'password'              => Hash::make($request->password),
             ]);
+
+            //guardo la imagen
             if ($request->file('avatar')) {
                 $image = $request->file('avatar');
                 $type = $image->getClientOriginalExtension();
@@ -95,6 +95,8 @@ class UserAdminController extends Controller
             } else {
                 $avatar_image = '/dist/img/user2-160x160.jpg';
             }
+
+            //creo los datos del usuario
             $userData = UserData::create([
                 'user_id'           =>  $user->id,
                 'first_name'        =>  $request->first_name,
@@ -107,7 +109,7 @@ class UserAdminController extends Controller
             ]);
 
 
-
+            //si no hay error, almaceno todos los datos
             if (!is_null($user && $userData)) {
                 $user->assignRole($role->name);
                 DB::commit();
@@ -171,64 +173,43 @@ class UserAdminController extends Controller
         try {
             DB::beginTransaction();
 
-            $arrayRemove = array(" ","(",")","-","_");
-            $arrayRemoveDni=array(".","_");
-            $mobile = str_replace($arrayRemove,"",$request->mobile);
-            $dni = str_replace($arrayRemoveDni,"",$request->dni);
-           
-            
-
-            if ($request->file('avatar')) {
-                $image = $request->file('avatar');
-                $type = $image->getClientOriginalExtension();
-                $img = date('Y-m-d-H-i-s') . '-id-' . $user->id . '.' . $type;
-                $image->move('image/user/', $img);
-
-                $avatar_image = 'image/user/' . $img;
-            } else {
-                $avatar_image = '/dist/img/user2-160x160.jpg';
-            }
-
             //################# NOTA #######################
-            //Estos controles los hago porque me dan errores al momento de usar en el custom request
-            //una condición de la forma unique:App\Models\User,email,'.auth()->user()->id,',id'
-            //Por ello controlo los errores de esta manera
+            //Estos controles los hago porque me dan errores al momento de usar el custom request
+            //Por algún motivo, no controla que el dni sea único y tampoco controla la máscara del móvil
+         
+            $mobile = $this->removeMaskMobile($request->mobile);
+            $dni = $this->removeMaskDni($request->dni);
+            $errors=[];
+            $checkMobile=$this->checkMobile($mobile);
+            $checkDni='';
+            $userData = UserData::where('user_id',$user->id)->first();
+            //dd($userData);
+            //controlo si el dni del formulario no es igual al ingresado
+            //si no lo es significa que el usuario desea cambiarlo y hay que hacer los controles
+          
+            //if($dni!=$userData->dni) $errors['dni']='No puede modificar el dni';
+            //if(strlen($checkDni)!=0) $errors['dni']=$checkDni;
+            if(strlen($checkMobile)!=0) $errors['mobile']=$checkMobile;
+            if(count($errors)>0) return redirect()->back()->withInput()->withErrors($errors);
+             //controlo si hay un error en el dni, si lo hay, retorno con el error
+            
+
 
             
-            //controlo si hay un error en el dni
-            if($request->dni!==$user->dni){
-                $errorMsgDni=$this->checkDni($dni,$user->id);
-            }
-    
-             //controlo si hay un error en el dni, si lo hay, retorno con el error
-            if(strlen($errorMsgDni)!=0) return back()->withErrors(['dni'=>$errorMsgDni]);
-
-
-            $userData = UserData::where('user_id',$user->id)->first();
             if(!is_null($userData)){
                 $userData->first_name = $request->first_name;
                 $userData->last_name = $request->last_name;
-                $userData->dni = $dni;
+                
                 $userData->address = $request->address;
                 $userData->mobile = $mobile;
                 $userData->date_of_birth = $request->date_of_birth;
-                $userData->avatar=$avatar_image;
+                //si llego hasta aquí es porque pasó todos los controles y sólo determino si se cambiará
+                //o no el dni dependiendo si el usuario puso un valor distinto al que estaba
+                 //$userData->dni=$dni;
                 $userData->save();
-            }else{
-                $userData=UserData::create(
-                    [
-                        'first_name'=>$request->first_name,
-                        'last_name'=>$request->last_name,
-                        'dni'=>$dni,
-                        'address'=>$request->address,
-                        'mobile'=>$mobile,
-                        'date_of_birth'=>$request->date_of_birth,
-                        'user_id'=>$user->id,
-                        'avatar'=>$avatar_image
-
-                    ]
-                );
             }
+
+           
          
 
             if (!is_null($user && $userData)) {
@@ -335,28 +316,57 @@ class UserAdminController extends Controller
       
     }
 
-   
-
-
     /**
-     * Controla que el dni cumpla las condiciones para ser considerado válido
-     * Lo usamos en el update para verificar si el usuario quiere cambiar su dni
-     * @param String $requestDni El dni que se manda por el formulario
-     * @return String Un mensaje de error. Estará vacío si no hay error
+     * Controla a la vez que el dni y el móvil sean correctos. Lo uso para la nueva alta
+     * @param String $mobile El número de teléfono que se controlará
+     * @param String $dni El dni que se controlará
+     * @return Array Un array con la lista de errores
      */
-    private function checkDni(String $requestDni,$userId){
-        $errorMsg='';
-        $user=UserData::select('dni')->where('dni','=',$requestDni)->where('user_id','!=',$userId)->first();
-       // dd($user);
-        if(!is_null($user)) $errorMsg='El dni ingresado ya existe';
-        return $errorMsg;
+   private function checkMobileAndDni($mobile,$dni){
+        $errorDni='';
+        $errorMobile='';
+        $errors=[];
+        $userData=null;
+        $userData=UserData::select('dni')->where('dni','=',$dni)->first();
+        //dd($userData);
+        $errorMobile=$this->checkMobile($mobile);
+        $errorDni=$this->checkDni($dni,$userData);
+        if(strlen($errorMobile)>0) $errors['mobile']=$errorMobile;
+        if(strlen($errorDni)>0) $errors['dni']=$errorDni;
+
+        return $errors;
+   }
+
+   /**
+    * Controla individualmente al teléfono móvil
+    *@param String $mobile El número de teléfono a controlar
+    *@return String El string con el error producido
+    */
+   private function checkMobile($mobile){
+        $errorMobile='';
+      
+        $errorMobile=$this->controlMobile($mobile);
+       
+        //dd($errorMobile);
+        return $errorMobile;
     }
 
-    private function checkMobile(String $requestMobile){
-        $errorMsg='';
-        $errorMsg=strlen($requestMobile)<10?'El teléfono debe tener 10 caracteres':'';
-        return $errorMsg;
-    }
+    
+   /**
+    * Controla individualmente al dni
+    *@param String $mobile El número de dni a controlar
+    *@return String El string con el error producido
+    */
+    private function checkDni($dni){
+        $errorDni='';
+     
+        $userData=UserData::select('dni')->where('dni','=',$dni)->first();
+        //dd($userData);
+        $errorDni=$this->controlDni($dni,$userData);
+        
+        return $errorDni;
+   }
 
+ 
 
 }

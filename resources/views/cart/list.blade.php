@@ -8,6 +8,15 @@
      <div class="content-wrapper" style="margin-left: 0px;">
         <!-- Main content -->
         <div class="content">
+            <div>
+                <form action={{route('buyProducts',$cart->id)}} method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-success">
+                        Buy
+                    </button>
+                </form>
+             
+            </div>
             <div class="container">
                 @if($errors->has('msgError'))
                 <p class="text-danger text-center">{{ $errors->first('msgError') }}</p>
@@ -83,6 +92,21 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
+
+@if ($errors->has('buyError'))
+@section('scripts')
+    <script>
+        Swal.fire({
+        icon: "error",
+        title: "Error al realizar la compra",
+        text:'{{$errors->first('buyError')}}'
+       
+        });
+    </script>
+@endsection
+    
+@endif
+
 
 @extends('layouts.footer')
        

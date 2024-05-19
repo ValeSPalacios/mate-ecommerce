@@ -128,7 +128,10 @@
        
    
     </div>
-    <div class="text-right">
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="d-flex justify-content-center">
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </div>
+    
 </div>
