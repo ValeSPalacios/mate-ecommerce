@@ -19,7 +19,8 @@
                         <div class="card-body p-4 p-md-5 body">
                             <h3 class="poppins-semibold mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registración</h3>
 
-                            <form class="px-md-2" method="POST" action="{{ route('register') }}" id="formRegister">
+                            <form class="px-md-2" method="POST" action="{{ route('register') }}" id="formRegister"
+                            novalidate>
                                 @csrf
 
                                 <div data-mdb-input-init class="form-outline mb-4">
@@ -27,7 +28,7 @@
                                         @error('username') is-invalid @enderror" 
                                         name="username" value="{{ old('username') }}"
                                         required autocomplete="username" autofocus>
-                                    <label class="poppins-medium form-label" for="name">Usuario</label>
+                                    <label class="poppins-medium form-label" for="username">Usuario</label>
                                     @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -58,8 +59,13 @@
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                    <input id="password-confirm" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control form-control-lg @error('password-confirm') is-invalid @enderror" name="password-confirm" required autocomplete="new-password">
                                     <label class="poppins-medium form-label" for="password-confirm">Confirmar contraseña</label>
+                                    @error('password-confirm')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
 
                                 <div class="pt-1 mb-4">
