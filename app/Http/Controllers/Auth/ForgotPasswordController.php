@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -45,10 +46,12 @@ class ForgotPasswordController extends Controller
      */
     public function sendResetLinkEmail(Request $request)
     {
-        $categories=Category::all();
+        //$categories=Category::all();
         $user=$this->getUser($this->credentials($request));
         //dd($user);
         $codeToken=$this->createToken();
+
+        //Si el usuario no es válido, redirecciono con error. En caso contrario, envío el mail preparando las sesiones
         if(is_null($user)){
             return redirect()->back()->withErrors(['error_message'=>'Invalid credentials'])
             ->withInput();
@@ -59,7 +62,8 @@ class ForgotPasswordController extends Controller
             $passwordReset=PasswordReset::where('email',$user->email)->first();
             $this->createOrUpdatePasswordReset($passwordReset,$user,$codeToken);
             $this->sendEmailForReset($user,$codeToken);
-            return view('emails.successSendMail',compact('categories'));
+            Session::flash('success_send_reset_mail','El mail fue enviado con éxito. Revise su bandeja de entrada en su correo');
+            return redirect()->route('index');
         }
     }
 
@@ -160,8 +164,9 @@ class ForgotPasswordController extends Controller
         $categories=Category::all();
         $passwordReset=PasswordReset::select('email','token')->where('email',session('email'))
         ->where('token',session('codeToken'))->first();
-        //Si no existe ese registro, se envia un mensaje de error 
-        //En caso que exista, reseteamos la contraseña enviando los datos a la ruta pertinente
+       
+        //Si no existe ese registro o hubo un problema con las sesiones, se envia un mensaje de error 
+        //En caso que exista,mostramos el formulario para resetear la contraseña
         if(is_null($passwordReset)){
             $this->emptySession();
             return redirect()->route('password.request')
@@ -179,19 +184,22 @@ class ForgotPasswordController extends Controller
      * Se encargará de la actualización de la contraseña en la base de datos
      * @var Illuminate\Http\Request $request Los datos de la petición para realizar el reseteo
      */
-    public function passwordUpdate(Request $request){
+    public function passwordUpdate(ResetPasswordRequest $request){
         $redirectionReturn=null;
         //recupero los datos del token y email, así como los datos del usuario registrado
        $dataUserAndPasswordReset=$this->getUserAndPasswordResetIfExist($request);
         
        //determino si la contraseña no tiene un formato válido
-       if(!$dataUserAndPasswordReset['password']) $redirectionReturn=$this->errorMessage(400,'Passwords no match');
+       //Esto ya lo controlo con el custom request
+       //if(!$dataUserAndPasswordReset['password']) $redirectionReturn=$this->errorMessage(400,'Passwords no match');
 
        //compruebo que tanto los datos del token y email, así como los datos del usuario registrado
-       //existan. Si no existen, vuelvo a la ventana 
+       //existan. Si no existen, vuelvo al formulario
+       //dd($dataUserAndPasswordReset);
        if(is_null($dataUserAndPasswordReset['user']) || is_null($dataUserAndPasswordReset['passwordReset'])){
-            $this->emptySession();
-            $redirectionReturn=$this->errorMessage(400,'Credentials not valids');
+            //$this->emptySession();
+            //Session::flash('error_message','Credentials not valids');
+            return redirect()->back()->withErrors(['error_message'=>'Invalid credentials']);
        }   else{
                         //modifico al nuevo password
                     $dataUserAndPasswordReset['user']->password=Hash::make($request->password);
@@ -203,12 +211,13 @@ class ForgotPasswordController extends Controller
                 PasswordReset::where('email',$dataUserAndPasswordReset['passwordReset']->email)->delete();
                     //vacío la sesión que almacenaba los datos del token y el mail
                 $this->emptySession();
-                $redirectionReturn=$this->errorMessage(200,'Password modified.Please, login');
+                Session::flash('success_reset_password','Password modified.Please, login');
+                return redirect()->route('login');
        }
        
        
 
-        return $redirectionReturn;
+        //return $redirectionReturn;
        
        
             
@@ -223,9 +232,12 @@ class ForgotPasswordController extends Controller
      * del usuario registrado, junto con si el password es correcto. En caso contrario, uno o varios campos serán nulos.
      */
     private function getUserAndPasswordResetIfExist($initialRequest){
+        //dd($initialRequest);
         $user=null;
+        //Anteriormente controlaba el mail mediante session('codeToken'), pero conviene controlarlo con lo enviado desde el formulario
+        //para evitar que el usuario coloque un mail inválido.
         $validPassword=$this->checkPassword($initialRequest->password,$initialRequest->password_confirmation);
-        $passwordReset=PasswordReset::where('email', session('email'))->where('token',session('codeToken'))->first();
+        $passwordReset=PasswordReset::where('email', $initialRequest->email)->where('token',session('codeToken'))->first();
         if(!is_null($passwordReset) && $validPassword) $user=User::where('email',$passwordReset->email)->first();
         return ['passwordReset'=>$passwordReset,'user'=>$user,
         'password'=>$validPassword];
@@ -254,17 +266,18 @@ class ForgotPasswordController extends Controller
      * @var String $message El mensaje de error que se mostrará
      */
   
-    private function errorMessage($code,$message){
+    /*private function errorMessage($code){
 
         switch($code){
             case 200:
-                Session::flash('success',$message);
+                
                 return redirect()->route('login');
                 break;
             case 400:
-                //Session::flash('error_message',$message);
-                return redirect()->back()->withErrors(['error_message'=>$message]);
+                
+
+                return redirect()->back();
                 break;
         }
-    }
+    }*/
 }
