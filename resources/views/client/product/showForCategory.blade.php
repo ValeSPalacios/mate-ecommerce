@@ -7,7 +7,7 @@
 
   <!-- Main content -->
   <section>
-    <div class="container-fluid">
+    <div class="container-fluid products-style">
       <div class="row">
         <!-- left column -->
         <div class="col-md-12">
