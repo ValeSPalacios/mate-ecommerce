@@ -85,11 +85,11 @@
 <body class="hold-transition">
     <div id="app">
       
-            @yield('logo')
-            @yield('nav')
-            <main>
-                @yield('content')
-            </main>
+        @yield('logo')
+        @yield('nav')
+        <main>
+            @yield('content')
+        </main>
         
     </div>
 

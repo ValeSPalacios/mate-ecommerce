@@ -36,20 +36,20 @@
                     <input type="text" class="form-control form-control-lg" id="address" name="address"
                     value="{{ !empty($userData->address) ? $userData->address : old('address') }}">
                     @if($errors->has('address'))
-                        <p class="text-danger">{{ $errors->first('last_name') }}</p>
+                        <p class="text-danger">{{ $errors->first('address') }}</p>
                     @endif
                     <label class="form-label" for="address">Dirección</label>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div data-mdb-input-init class="form-outline">
-                <input type="text" class="form-control form-control-lg maskDNI" name="dni" id="dni" 
-                data-inputmask='"mask": "99.999.999"' data-mask  
-                value="{{ !empty($userData->dni) ? $userData->dni : old('dni') }}">
-                @if($errors->has('dni'))
-                    <p class="text-danger">{{ $errors->first('dni') }}</p>
-                @endif
-                    <label class="form-label" for="dni">DNI</label>
+                    <input type="text" class="form-control form-control-lg maskDNI" name="dni" id="dni" 
+                    data-inputmask='"mask": "99.999.999"' data-mask  
+                    value="{{ !empty($userData->dni) ? $userData->dni : old('dni') }}">
+                    @if($errors->has('dni'))
+                        <p class="text-danger">{{ $errors->first('dni') }}</p>
+                    @endif
+                        <label class="form-label" for="dni">DNI</label>
                 </div>
             </div>
         </div>
@@ -97,7 +97,23 @@
                     @endif
                 </div>
             </div>
-            <!--    Acá debe ir la foto del usuario -->
+            <div class="col-md-6">
+                @if (!empty($userData->avatar))
+                    <div class="form-group">
+                        <img src="{{ url($userData->avatar) }}" class="elevation-2 userImage form-control-lg" alt="User Image">
+                        <label for="avatar" class="avatar">Foto de perfil</label>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input form-control-lg" name="avatar" id="avatar">
+                                <label class="custom-file-label customFileLabelAvatar" for="avatar" class="a">Foto de perfil</label>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
             
         </div>
 
@@ -106,24 +122,3 @@
         </div>
     </form>
 </div>
-
-<!-- foto del usuario
-    <div class="col-md-6">
-        @if (!empty($userData->avatar))
-            <div class="form-group">
-                <label for="avatar" class="avatar">Avatar</label>
-                <img src="{{ url($userData->avatar) }}" class="elevation-2 userImage" alt="User Image">
-            </div>
-        @else
-            <div class="form-group">
-                <label for="avatar" class="avatar">Avatar</label>
-                <div class="input-group">
-                    <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="avatar" id="avatar">
-                    <label class="custom-file-label customFileLabelAvatar" for="avatar" class="avatar">Avatar</label>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
--->

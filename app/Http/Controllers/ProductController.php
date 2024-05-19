@@ -77,7 +77,7 @@ class ProductController extends Controller
             'product_image'     =>trim($product_image),
             'cost_price'        =>$request->cost_price,
             'increase'          =>$request->increase,
-            'stock'             =>$request->stocck,
+            'stock'             =>$request->stock,
             'enabled'           =>true,
             'category_id'       =>$request->category,
             'user_created'      =>auth()->user()->id,

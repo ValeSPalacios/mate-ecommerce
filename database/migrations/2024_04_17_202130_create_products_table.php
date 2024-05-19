@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('stock')->nullable();
             $table->boolean('enabled')->default(true);
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('products');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedbigInteger('user_created');
             $table->foreign('user_created')->references('id')->on('users');
             $table->unsignedbigInteger('user_updated');
