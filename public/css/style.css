@@ -34,7 +34,11 @@
   background-color: var(--primary-color) !important;
 }
 
-/*  Navbar  */ 
+/*  Navbar  */
+.nav-icon {
+  color: var(--primary-color);
+}
+
 .navGuestBar{
   background-color: var(--tertiary-color);
 }
@@ -58,13 +62,23 @@
 
 .footer-icon {
   color: var(--secondary-color);
-
 }
 
 /*  Botón general  */
 .general-btn{
   background-color: var(--primary-color);
   color: var(--tertiary-color);
+}
+
+/*  Home  */
+.carousel-style{
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+}
+
+.home-banner-style{
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
 }
 
 /*  Login */

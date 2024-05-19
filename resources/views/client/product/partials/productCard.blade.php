@@ -5,7 +5,7 @@
     @csrf
 
     <div class="card body" style="width: 18rem;">
-      <img src={{asset($product->product_image)}} alt="product_mate" height="250px">
+      <img src="{{asset($product->product_image)}}" alt="product_mate" height="250px">
       <div class="card-body">
         <h5 class="card-title poppins-medium">{{$product->name}}</h5>
         <p class="card-text poppins-regular" name="description">{{$product->description}}.</p>
@@ -31,8 +31,3 @@
     </div>
   </form>
 </div>
-
-
-
-
-

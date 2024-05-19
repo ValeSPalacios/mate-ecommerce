@@ -112,8 +112,5 @@ Route::group([
     Route::post('purchase/store','PurchaseProductController@store')->name('admin.purchase.store');
     Route::get('purchase/{product}/{provider}/edit','PurchaseProductController@edit')->name('admin.purchase.edit');
     Route::put('purchase//{product}/update','PurchaseProductController@update')->name('admin.purchase.update');
-    
-    
-    
 
 });

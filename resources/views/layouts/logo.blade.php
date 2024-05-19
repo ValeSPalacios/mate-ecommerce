@@ -23,9 +23,14 @@
                 @else
 
                 <div class="btn-group">
-                    <button class="poppins-medium dropdown-toggle btn p-2" style="font-size: 20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->username }}
-                    </button>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a href="{{ route('cart.index') }}">
+                            <i class="fa fa-shopping-cart fa-2xl pr-2 nav-icon" aria-hidden="true"></i>
+                        </a>
+                        <button class="poppins-medium dropdown-toggle btn p-2" style="font-size: 20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->username }}
+                        </button>
+                    </div>
                     <ul class="poppins-regular logo-navbar-nav dropdown-menu dropdown-menu-end dropdown-menu-lg-start body">
                         <li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
