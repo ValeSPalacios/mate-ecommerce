@@ -55,6 +55,7 @@ Route::group([
     Route::get('indexCart','CartController@index')->name('cart.index');
     Route::post('cartStore','CartController@store')->name('cart.store');
     Route::put('{detail}/addToCart','CartController@update')->name('cart.update');
+    Route::post('{idCart}/buyProducts','SalesController@buy')->name('buyProducts');
 
 });
 
