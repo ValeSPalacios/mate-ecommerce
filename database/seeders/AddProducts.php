@@ -59,8 +59,8 @@ class AddProducts extends Seeder
             'increase'=>3,
             'stock'=>500,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto Y',
@@ -70,8 +70,8 @@ class AddProducts extends Seeder
             'increase'=>2,
             'stock'=>250,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto Z',
@@ -81,8 +81,8 @@ class AddProducts extends Seeder
             'increase'=>3,
             'stock'=>350,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto XZ',
@@ -92,8 +92,8 @@ class AddProducts extends Seeder
             'increase'=>3,
             'stock'=>450,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto Nuvo WZ',
@@ -103,8 +103,8 @@ class AddProducts extends Seeder
             'increase'=>1,
             'stock'=>720,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto Super Nuevo ZX',
@@ -114,8 +114,8 @@ class AddProducts extends Seeder
             'increase'=>3,
             'stock'=>80,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto Simple',
@@ -125,8 +125,19 @@ class AddProducts extends Seeder
             'increase'=>2,
             'stock'=>430,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
+        ]);
+        Product::create([
+            'name'=>'Pabc def ghi',
+            'description'=>'Producto nuevo simple por siempre',
+            'product_image'=>'image/product/mate1.jpeg',
+            'cost_price'=>12000,
+            'increase'=>2,
+            'stock'=>430,
+            'category_id'=>2,
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
         Product::create([
             'name'=>'Producto WWF',
@@ -136,8 +147,8 @@ class AddProducts extends Seeder
             'increase'=>2,
             'stock'=>507,
             'category_id'=>1,
-            'user_created'=>6,
-            'user_updated'=>6
+            'user_created'=>1,
+            'user_updated'=>1
         ]);
     }
 }
