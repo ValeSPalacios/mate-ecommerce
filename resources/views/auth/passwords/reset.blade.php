@@ -1,5 +1,6 @@
 @extends('layouts.appClient')
 @extends('layouts.logo')
+@section('title','Reinicio Contraseña')
 @section('content')
 
 <div class="container">
@@ -9,7 +10,12 @@
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('password.update') }}">
+                        @if($errors->has('error_message'))
+                        <p class="text-danger text-center">{{ $errors->first('error_message') }}</p>
+                       @endif
+                       
+                        <form method="POST" action="{{ route('password.update') }}"
+                        novalidate>
                             @csrf
 
                             <input type="hidden" name="token" value="{{ $token }}">
@@ -43,10 +49,15 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                <label for="password_confirmation" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                             </div>
 
