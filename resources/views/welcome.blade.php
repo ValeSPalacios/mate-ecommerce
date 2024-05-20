@@ -81,7 +81,7 @@
                     <div class="row justify-content-around">
                         @foreach ($products as $product)
                             <div class="col">
-                                <a href="{{route('showProduct',$category=1)}}">
+                                <a href="{{route('showProduct',$category=3)}}">
                                     <div class="card body" style="width: 20rem;">
                                         <img src="{{asset($product->product_image)}}" alt="products_home" height="250px">
                                         <div class="card-body">
@@ -98,7 +98,8 @@
     </div>
 @endsection
 
-<!--Muestra el mensaje exitoso para mostrar que se envió el mail de reseteo de
+<!-- Muestra una notificación para confirmar
+que se envió el mail de reseteo de
 contraseña-->
 @if(session()->has('success_send_reset_mail'))
     @section('scripts')
@@ -108,7 +109,7 @@ contraseña-->
             icon: "success",
             color: "#C07F49",
             iconColor: "#C07F49",
-            title: "Mail De Reinicio Enviado Correctamente",
+            title: "Se ha enviado un mensaje a su correo electrónico",
             showConfirmButton: true,
             timer: 1500
             });

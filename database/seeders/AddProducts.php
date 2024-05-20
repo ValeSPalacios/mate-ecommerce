@@ -71,7 +71,7 @@ class AddProducts extends Seeder
             'cost_price'=>1500,
             'increase'=>2,
             'stock'=>250,
-            'category_id'=>1,
+            'category_id'=>3,
             'user_created'=>1,
             'user_updated'=>1
         ]);
@@ -83,7 +83,7 @@ class AddProducts extends Seeder
             'cost_price'=>1700,
             'increase'=>3,
             'stock'=>450,
-            'category_id'=>1,
+            'category_id'=>3,
             'user_created'=>1,
             'user_updated'=>1
         ]);
@@ -95,7 +95,7 @@ class AddProducts extends Seeder
             'cost_price'=>3100,
             'increase'=>1,
             'stock'=>720,
-            'category_id'=>1,
+            'category_id'=>3,
             'user_created'=>1,
             'user_updated'=>1
         ]);
@@ -106,7 +106,7 @@ class AddProducts extends Seeder
             'cost_price'=>3722,
             'increase'=>3,
             'stock'=>80,
-            'category_id'=>1,
+            'category_id'=>3,
             'user_created'=>1,
             'user_updated'=>1
         ]);

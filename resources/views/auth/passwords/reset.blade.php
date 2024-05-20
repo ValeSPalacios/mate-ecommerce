@@ -40,7 +40,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                <label class="poppins-medium form-label" for="password">Contraseña</label>
+                                <label class="poppins-medium form-label" for="password">Nueva Contraseña</label>
                             </div>
 
                             <div data-mdb-input-init class="form-outline mb-4">
