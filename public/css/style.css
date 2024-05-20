@@ -125,6 +125,12 @@
   color: var(--primary-color);
 }
 
+/*  Carrito  */
+.cart-view{
+  color: var(--primary-color);
+}
+
+
 /* ############################################################################## */
 /* custom style */
 
@@ -206,14 +212,3 @@
      color: var(--first-dark);
      
   }
-  
-  /*Inicio del código para mantener siempre el pie de página debajo
-  Sacado de: 
-  
-  https://www.freecodecamp.org/espanol/news/como-mantener-tu-pie-de-pagina-donde-pertenece/
-  
-  */
-  
-  
-
-  
