@@ -16,7 +16,7 @@ class AdminRoleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->check() && auth()->user()->roles[0]->id==1)
+        if (auth()->check() && auth()->user()->roles[0]->id==1)
             return $next($request);
         return redirect()->route('index');
     }

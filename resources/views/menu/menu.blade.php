@@ -126,11 +126,36 @@
                 </ul>
               </li>
 
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa-solid fa-dolly me-3"></i>
+                  <p>
+                    Graphics
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview text-center">
+                  <li class="nav-item">
+                    <a href="{{ route('admin.graphic.index') }}" class="nav-link">
+                      <i class="fa-solid fa-bag-shopping me-3"></i>
+                      <p>Products</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('admin.purchase.index') }}" class="nav-link">
+                      <i class="fa-solid fa-list me-3"></i>
+                      <p>List</p>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Menu
+                Graphics
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

@@ -113,4 +113,12 @@ Route::group([
     Route::get('purchase/{product}/{provider}/edit','PurchaseProductController@edit')->name('admin.purchase.edit');
     Route::put('purchase//{product}/update','PurchaseProductController@update')->name('admin.purchase.update');
 
+    
+    /**
+     * Rutas para que el administrador vea las gráficas
+     */
+    Route::get('showGraphics','GraphicsController@index')->name('admin.graphic.index');
+    Route::get('fiveProductsMostExpensive','GraphicsController@getTopFiveProducts')->name('admin.graphic.tenprods');
+    Route::get('categoryCount','GraphicsController@getCategoryCount')->name('admin.graphic.categoryCount');
+    Route::get('fiveLessStock','GraphicsController@getStock')->name('admin.graphic.fiveLessStock');
 });
