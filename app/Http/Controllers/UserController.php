@@ -26,7 +26,8 @@ class UserController extends Controller
 {
     use ControlUserAndUserData;
     /**
-     * Mostará la lista de los usuarios a un usuari administrador, excluyendo al usuario que tiene la sesión activa
+     * Mostrará la lista de los usuarios a un usuario administrador,
+     * excluyendo al usuario que tiene la sesión activa
      *
      * @return \Illuminate\Http\Response
      */
@@ -212,9 +213,6 @@ class UserController extends Controller
                 $userData->address = $request->address;
                 $userData->mobile = $mobile;
                 $userData->date_of_birth = $request->date_of_birth;
-                //si llego hasta aquí es porque pasó todos los controles y sólo determino si se cambiará
-                //o no el dni dependiendo si el usuario puso un valor distinto al que estaba
-             //$userData->dni=$dni; 
             }else{
                $userData=UserData::create([
                 'first_name' => $request->first_name,
@@ -303,21 +301,6 @@ class UserController extends Controller
         }
         
     }
-     /**
-     * 
-     *
-     * @param  int  $username
-     * @return \Illuminate\Http\Response
-     */
-    public function searchUser(Request $request)
-    {
-        $user = User::where('email', $request->email)->first();
-        if (is_null($user)) {
-            return ['status' => 200];
-        } else {
-            return ['status' => 400];
-        }
-    }
 
     /**
      * Permite recuperar los datos del usuario para mostrarlos
@@ -368,10 +351,5 @@ class UserController extends Controller
         //dd($errorMobile);
         return $errorMobile;
     }
-
-    
-
-
- 
 
 }

@@ -22,7 +22,7 @@
         <a class="nav-link" href="#">Información</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href='${contact}'>Contacto</a>
+        <a class="nav-link" href='#'>Contacto</a>
     </li>
 </ul>
 @endsection

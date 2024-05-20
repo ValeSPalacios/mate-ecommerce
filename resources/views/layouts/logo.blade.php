@@ -20,7 +20,7 @@
                         </a>
                     </div>
                 @endif
-                @else
+            @else
 
                 <div class="btn-group">
                     <div class="d-flex justify-content-center align-items-center">

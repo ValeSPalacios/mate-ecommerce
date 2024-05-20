@@ -105,7 +105,7 @@ function showDataInModal(data){
        
 
     `;
-    console.log(dataUser['first_name']);
+
     if(dataUser['first_name']){
         modalBody.innerHTML+=`
                 <div class='container'>
