@@ -117,6 +117,38 @@ contraseña-->
     @endsection
 @endif
 
+@if(session()->has('empty_cart'))
+    @section('scripts')
+        <script>
+            Swal.fire({
+            position: "center",
+            icon: "success",
+            color: "#C07F49",
+            iconColor: "#C07F49",
+            title: "El carrito está vacío",
+            showConfirmButton: true,
+            timer: 1500
+            });
+        </script>
+    @endsection
+@endif
+
+@if(session()->has('buy_success'))
+    @section('scripts')
+        <script>
+            Swal.fire({
+            position: "center",
+            icon: "success",
+            color: "#C07F49",
+            iconColor: "#C07F49",
+            title: "Gracías por su compra",
+            showConfirmButton: true,
+            timer: 1500
+            });
+        </script>
+    @endsection
+@endif
+
 @section('footer')
     @include('layouts.footer')
 @endsection

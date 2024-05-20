@@ -10,6 +10,7 @@ use App\Models\CartDetail;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -26,7 +27,7 @@ class CartController extends Controller
             ->where('cart_id',$cart->id)
             ->paginate(5));
         }
-        return response('Error al recuperar los datos del carrito',404);
+        return response(null,404);
     
         
 
@@ -47,8 +48,25 @@ class CartController extends Controller
     public function destroy(Request $request){
         //dd($request->query('detailId'));
     
-        $detail=CartDetail::find($request->query('detailId'));
-        $detail->delete();
+        $detail=CartDetail::with('cart')->where('id',$request->query('detailId'))->first();
+    
+        
+        if(!is_null($detail)){
+           $idCart=$detail->cart->id;
+           $detail->delete();
+           $cart=Cart::with('carts_details')->where('id',$idCart)->first();
+           $data= (array)json_decode(json_encode($cart->carts_details,true));
+           if(count($data)==0){
+                $cart->delete();   
+                return response('Carrito vacío',200);
+           } 
+            
+        }
+
         return response()->noContent();
+       
+        
     }
+
+   
 }

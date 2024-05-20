@@ -23,6 +23,12 @@ class SalesController extends Controller
           //recupero el carrito del producto
            $cart = Cart::with('carts_details')->where('user_created',auth()->user()->id)
            ->first();
+        
+           //dd(count($cart->carts_details)==0);
+                if(is_null($cart)) {
+                    Session::flash('empty_cart',1);
+                    return redirect()->route('index');
+                }
            //el total de la compra
            $total=0;
            
@@ -34,7 +40,7 @@ class SalesController extends Controller
             //controlo inicialmente que se tengan datos en el carrito, en los detalles y que la cabecera
             //se haya creado
 
-            if(empty($cart->carts_details) || empty($salesHead) || empty($cart)){
+            if(count($cart->carts_details)==0 || empty($salesHead) || empty($cart)){
                 DB::rollBack();
                 return back()->withErrors(['buyError'=>'Error al comprar los productos']);
             }
@@ -78,7 +84,7 @@ class SalesController extends Controller
          CartDetail::where('cart_id',$cart->id)->delete();
          $cart->delete();
          DB::commit();
-         Session::flash('buySuccess','Gracias por su compra');
+         Session::flash('buy_success','Gracias por su compra');
          return redirect()->route('index');
 
        } catch (\Throwable $th) {
@@ -88,11 +94,11 @@ class SalesController extends Controller
        }
     }
     
-private function calculateTotal($cart){
-    foreach ($cart->carts_details as $key => $detail) {
-        $total=0;
-        $total += (((($detail->increase * $detail->cost_price) / 100) + $detail->cost_price) * $detail->count);
-        return $total;
+    private function calculateTotal($cart){
+        foreach ($cart->carts_details as $key => $detail) {
+            $total=0;
+            $total += (((($detail->increase * $detail->cost_price) / 100) + $detail->cost_price) * $detail->count);
+            return $total;
+        }
     }
-}
 }

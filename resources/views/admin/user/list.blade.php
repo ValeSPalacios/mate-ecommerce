@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@extends('layouts.nav')
+@extends('layouts.navBarAdmin')
 @extends('menu.menu')
 @section('content')
 
@@ -12,10 +12,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title titleModule mt-2">User List</h3> <a href="{{ route('admin.user.create') }}" 
+                    <h3 class="card-title titleModule mt-2">User List</h3> 
+                    <a href="{{ route('admin.user.create') }}" 
                     class="btn float-right colorCyan" role="button">+ Add User</a>
-                     <a href="{{ route('admin.user.edit',auth()->user()->id) }}" 
-                    class="btn float-right colorCyan" role="button">+ Modify Own Data</a>
+                    
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -38,7 +38,7 @@
                                         @if(!empty($user->userdata))
                                             <img src="{{!empty($user->userdata->avatar)?url($user->userdata->avatar):'' }}" class="elevation-2 userImage" alt="User Image">
                                         @else
-                                            <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="elevation-2 userImage" alt="User Image">
+                                            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="elevation-2 userImage" alt="User Image">
                                         @endif
                                     </td>
                                     <td style=" text-align:center">

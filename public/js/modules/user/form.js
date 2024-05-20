@@ -21,7 +21,7 @@ $(document).ready(function(){
  * @param {Boolean} newUser Determina si el formulario se usará para un nuevo usuario o una actualización
  * @returns {Boolean} Retorna true si todos los campos del formulario son válidos
  */
-function validateForm(newUser=true) {
+function validateForm(newUser=true,$user=null) {
 
     let flag = true;
 

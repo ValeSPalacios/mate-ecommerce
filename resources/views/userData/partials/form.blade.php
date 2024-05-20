@@ -62,10 +62,19 @@
             <p class="text-danger">{{ $errors->first('last_name') }}</p>
         @endif
     </div>
+    @if (!empty($user->userdata))
+        <div class="form-group">
+            <p class="alert alert-success">
+                {{$user->userdata->dni}}
+            </p>
+        </div>
+    @else
     <div class="form-group">
-      <label for="dni" class="dni">DNI</label>
-      <input type="text" class="form-control maskDNI" name="dni" id="dni" placeholder="DNI" data-inputmask='"mask": "99.999.999"' data-mask  value="{{ !empty($user->userdata) ? $user->userdata->dni : '' }}">
-    </div>
+        <label for="dni" class="dni">DNI</label>
+        <input type="text" class="form-control maskDNI" name="dni" id="dni" placeholder="DNI" data-inputmask='"mask": "99.999.999"' data-mask  value="{{ !empty($user->userdata) ? $user->userdata->dni : '' }}">
+      </div>
+    @endif
+    
     @if (!empty($user->userdata->avatar))
         <div class="form-group">
             <label for="avatar" class="avatar">Avatar</label>

@@ -16,14 +16,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ControlUserAndUserData;
-
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 /**
- * Controlador que se encarga de realizar las modificaciones del usuario desde el lado 
- * del administrador que está logueado
+ * Controlador que se encarga de trabajar con los usuarios
  */
 
-class UserAdminController extends Controller
+class UserController extends Controller
 {
     use ControlUserAndUserData;
     /**
@@ -70,9 +69,8 @@ class UserAdminController extends Controller
             
             $mobile = $this->removeMaskMobile($request->mobile);
             $dni = $this->removeMaskDni($request->dni);
-           
-            $errors=$this->checkMobileAndDni($mobile,$dni);
-            if(count($errors)>0) return redirect()->back()->withInput()->withErrors($errors);
+            $errors=$this->checkMobile($mobile);
+            if(strlen($errors)>0) return redirect()->back()->withInput()->withErrors($errors);
             //dd($errorMobile);
             
             //creo el rol y el usuario
@@ -83,17 +81,10 @@ class UserAdminController extends Controller
                 'email'                 => $request->email,
                 'password'              => Hash::make($request->password),
             ]);
-
+            //$avatar_image=$this->getUrlAvatar($request->file('avatar'));
             //guardo la imagen
-            if ($request->file('avatar')) {
-                $image = $request->file('avatar');
-                $type = $image->getClientOriginalExtension();
-                $img = date('Y-m-d-H-i-s') . '-id-' . $user->id . '.' . $type;
-                $image->move('image/user/', $img);
-
-                $avatar_image = 'image/user/' . $img;
-            } else {
-                $avatar_image = '/dist/img/user2-160x160.jpg';
+            if($request->file('avatar')){
+                $avatar_image=$this->getUrlAvatar($request->file('avatar'));
             }
 
             //creo los datos del usuario
@@ -119,10 +110,26 @@ class UserAdminController extends Controller
 
 
         } catch (\Exception $e) {
-            /* dd($e); */
-            DB::rollBack();
-            $notification = Notification::Notification('Error', 'error');
-            return redirect('user/create')->with('notification', $notification);
+          
+             //guardo la información del error
+             $errorInfo=(array)json_decode(json_encode($e,true));
+             //Reviso el código del error. Los errores SQL tienen una estructura particular
+            //Reviso que esa estructura sea la adecuada
+            $errors=[];
+           
+            //Reviso el código del error
+            $errors=!is_null($errorInfo['errorInfo'])?$this->getSQLError($errorInfo['errorInfo'][2]):null;
+             //dd($errorCode);
+             DB::rollBack();
+             //El error 23000 es el error para la violación de la restricción de código único
+             //Si sucede, por la naturaleza del problema, es que el dni está repetido
+             if(count($errors)>0){
+                 return redirect()->back()->withInput()->withErrors($errors);
+             }else{
+                 $notification = Notification::Notification('Error', 'error');
+             }
+             
+             return redirect()->back()->withInput()->with('notification', $notification);
         }
 
     }
@@ -157,7 +164,10 @@ class UserAdminController extends Controller
         $user = User::where('id', $user->id)->with('userdata','roles')->first();
         $roles = Role::all();
         
+    
         return view('admin.user.edit', compact('user', 'roles'));
+
+        
     }
 
     /**
@@ -181,19 +191,18 @@ class UserAdminController extends Controller
             $dni = $this->removeMaskDni($request->dni);
             $errors=[];
             $checkMobile=$this->checkMobile($mobile);
-            $checkDni='';
             $userData = UserData::where('user_id',$user->id)->first();
             //dd($userData);
-            //controlo si el dni del formulario no es igual al ingresado
-            //si no lo es significa que el usuario desea cambiarlo y hay que hacer los controles
+            //Controlo que el teléfono cumpla el formato planteado
+            //Si no, retorno con el
           
-            //if($dni!=$userData->dni) $errors['dni']='No puede modificar el dni';
-            //if(strlen($checkDni)!=0) $errors['dni']=$checkDni;
             if(strlen($checkMobile)!=0) $errors['mobile']=$checkMobile;
             if(count($errors)>0) return redirect()->back()->withInput()->withErrors($errors);
-             //controlo si hay un error en el dni, si lo hay, retorno con el error
-            
-
+    
+           //guardo la imagen
+           if($request->file('avatar')){
+                 $avatar_image=$this->getUrlAvatar($request->file('avatar'));
+            }
 
             
             if(!is_null($userData)){
@@ -205,10 +214,22 @@ class UserAdminController extends Controller
                 $userData->date_of_birth = $request->date_of_birth;
                 //si llego hasta aquí es porque pasó todos los controles y sólo determino si se cambiará
                 //o no el dni dependiendo si el usuario puso un valor distinto al que estaba
-                 //$userData->dni=$dni;
-                $userData->save();
+             //$userData->dni=$dni; 
+            }else{
+               $userData=UserData::create([
+                'first_name' => $request->first_name,
+                'last_name'=>$request->last_name,
+                'dni' => $dni,
+                'address' => $request->address,
+                'mobile' => $mobile,
+                'date_of_birth'=> $request->date_of_birth,
+                'user_id'=>$user->id,
+                'avatar'=>$avatar_image
+               ]);
+                
             }
-
+          
+            $userData->save();
            
          
 
@@ -220,10 +241,26 @@ class UserAdminController extends Controller
 
 
         } catch (\Exception $e) {
-            dd($e);
+            //dd($e);
+            //guardo la información del error convirtiendo previamente la información en arreglo
+            $errorInfo=(array)json_decode(json_encode($e,true));
+            //Reviso el código del error. Los errores SQL tienen una estructura particular
+            //Reviso que esa estructura sea la adecuada
+            $errors=[];
+           
+            //Reviso el código del error
+            $errors=!is_null($errorInfo['errorInfo'])?$this->getSQLError($errorInfo['errorInfo'][2]):null;
+            //dd($errorCode);
             DB::rollBack();
-            $notification = Notification::Notification('Error', 'error');
-            return redirect('user/list')->with('notification', $notification);
+            //El error 23000 es el error para la violación de la restricción de código único
+            //Si sucede, por la naturaleza del problema, es que el dni está repetido
+            if(count($errors)>0){
+                return redirect()->back()->withInput()->withErrors($errors);
+            }else{
+                $notification = Notification::Notification('Error', 'error');
+            }
+            
+            return redirect()->back()->withInput()->with('notification', $notification);
         }
     }
 
@@ -316,26 +353,7 @@ class UserAdminController extends Controller
       
     }
 
-    /**
-     * Controla a la vez que el dni y el móvil sean correctos. Lo uso para la nueva alta
-     * @param String $mobile El número de teléfono que se controlará
-     * @param String $dni El dni que se controlará
-     * @return Array Un array con la lista de errores
-     */
-   private function checkMobileAndDni($mobile,$dni){
-        $errorDni='';
-        $errorMobile='';
-        $errors=[];
-        $userData=null;
-        $userData=UserData::select('dni')->where('dni','=',$dni)->first();
-        //dd($userData);
-        $errorMobile=$this->checkMobile($mobile);
-        $errorDni=$this->checkDni($dni,$userData);
-        if(strlen($errorMobile)>0) $errors['mobile']=$errorMobile;
-        if(strlen($errorDni)>0) $errors['dni']=$errorDni;
-
-        return $errors;
-   }
+    
 
    /**
     * Controla individualmente al teléfono móvil
@@ -345,27 +363,14 @@ class UserAdminController extends Controller
    private function checkMobile($mobile){
         $errorMobile='';
       
-        $errorMobile=$this->controlMobile($mobile);
+        $errorMobile=$this->getErrorsMobile($mobile);
        
         //dd($errorMobile);
         return $errorMobile;
     }
 
     
-   /**
-    * Controla individualmente al dni
-    *@param String $mobile El número de dni a controlar
-    *@return String El string con el error producido
-    */
-    private function checkDni($dni){
-        $errorDni='';
-     
-        $userData=UserData::select('dni')->where('dni','=',$dni)->first();
-        //dd($userData);
-        $errorDni=$this->controlDni($dni,$userData);
-        
-        return $errorDni;
-   }
+
 
  
 
