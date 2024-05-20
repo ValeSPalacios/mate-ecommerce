@@ -27,13 +27,13 @@ class CartController extends Controller
         $categories=Category::all();
         $cart = Cart::with('carts_details')->where('user_created',auth()->user()->id)->first();
         if(is_null($cart)) return redirect('/');
-        $total = 0;
+        /*$total = 0;
         foreach ($cart->carts_details as $key => $detail) {
             $cart->carts_details[$key]->costPrice = (((($detail->increase * $detail->cost_price) / 100) + $detail->cost_price) * $detail->count);
             $total += (((($detail->increase * $detail->cost_price) / 100) + $detail->cost_price) * $detail->count);
-        }
-        $cart->total = $total;
-        return view('cart.list',compact('cart','categories'));
+        }*/
+        //$cart->total = $total;
+        return view('cart.listVue',compact('cart','categories'));
     }
 
     /**
