@@ -6,7 +6,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @if(!empty(Auth::user()))
+        <meta name="loginData" content={{Auth::user()->id}} id='loginData'>
+    @endif
     <!--<title>{{ config('app.name', 'Laravel') }}</title>-->
     <title>
         @yield('title')
