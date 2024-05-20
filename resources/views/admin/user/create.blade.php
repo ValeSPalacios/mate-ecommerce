@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@extends('layouts.nav')
+@extends('layouts.navBarAdmin')
 @extends('menu.menu')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -41,7 +41,8 @@
                 onsubmit="return validateForm(true);"-->
               <form method="post" action="{{ route('admin.user.store') }}"
                 enctype="multipart/form-data" autocomplete="off"
-               novalidate>
+                onsubmit="return validateForm()"
+             >
                     @csrf
                     @include('admin.user.partials.form')
                     

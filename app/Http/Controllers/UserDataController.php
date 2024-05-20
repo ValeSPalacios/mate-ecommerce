@@ -14,7 +14,7 @@ use Auth;
 use Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use App\Traits\ControlUserAndUserData;
 
 /**
  * Controlador que se encarga de actualizar los datos para el usuario registrado y que 
@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Validator;
  */
 class UserDataController extends Controller
 {
+    use ControlUserAndUserData;
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +30,7 @@ class UserDataController extends Controller
      */
     public function index()
     {
+        
         //
         //dd(auth()->user());
         //$user=User::with('userdata')->where('id',auth()->user()->id)->first();
@@ -63,30 +65,20 @@ class UserDataController extends Controller
     {
         try {
             DB::beginTransaction();
-
-            //dd($request);
-            /*$validator = Validator::make($request->all(), [
-                'first_name'        => 'required|between:1,100',
-                'last_name'         => 'required|between:1,100',
-                'email'             => 'required|between:3,64|email',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->back()->withInput();
-            }*/
-
-            //Controlo el dni y el teléfono
-            //El teléfono porque no encuentro una regex que pueda controlar su formato
-            //El dni porque, por algún motivo, no funciona el unique en el custom request
             $mobile = $this->removeMaskMobile($request->mobile);//
             $dni = $this->removeMaskDni($request->dni);
-            $errorMobile=$this->controlMobile($mobile);
-            $errorDni=$this->controlDni($dni);
+            $errorMobile=$this->getErrorsMobile($mobile);
+            //$errorDni=$this->controlDni($dni);
             $errors=[];
             if(strlen($errorMobile)!=0) $errors['mobile']=$errorMobile;
-            if(strlen($errorDni)!=0) $errors['dni']=$errorDni;
+            //if(strlen($errorDni)!=0) $errors['dni']=$errorDni;
             
             if (count($errors)!=0) return redirect()->back()->withInput()->withErrors($errors);
-            if ($request->file('avatar')) {
+           
+            if($request->file('avatar')){
+                $avatar_image=$this->getUrlAvatar($request->file('avatar'));
+            }
+            /*if ($request->file('avatar')) {
                 $image = $request->file('avatar');
                 $type = $image->getClientOriginalExtension();
                 $img = date('Y-m-d-H-i-s') . '-id-' . auth()->user()->id . '.' . $type;
@@ -95,7 +87,7 @@ class UserDataController extends Controller
                 $avatar_image = 'image/user/' . $img;
             } else {
                 $avatar_image = 'dist/img/user2-160x160.jpg';
-            }
+            }*/
             $userData = UserData::create([
                 'user_id'           =>  auth()->user()->id,
                 'first_name'        =>  $request->first_name,
@@ -112,15 +104,34 @@ class UserDataController extends Controller
             if (!is_null($userData)) {
                 DB::commit();
                 $notification = Notification::Notification('User Successfully Created', 'success');
-                return redirect('home')->with('notification', $notification);
+                return redirect()->route('home')->with('notification', $notification);
             }
 
 
         } catch (\Exception $e) {
-            /* dd($e); */
+            //#############NOTA############
+            //Esta forma de ontrolar el error en el dni lo hacemos porque, por un motivo que
+            //todavía no podemos descifrar, el custom request no controla correctamente el dni
+            
+            //dd($e);
+            //guardo la información del error
+            $errorInfo=(array)json_decode(json_encode($e,true));
+            $errors=[];
+           dd($errorInfo);
+            //Reviso el código del error
+            $errors=!is_null($errorInfo['errorInfo'])?$this->getSQLError($errorInfo['errorInfo'][2]):null;
+           // $errorCode=count($errorInfo)>0?$errorInfo['errorInfo'][0]:'';
+            //dd($errorCode);
             DB::rollBack();
-            $notification = Notification::Notification('Error', 'error');
-            return redirect()->route('userData.show')->with('notification', $notification);
+            //Dependiendo el error, podemos traer el mensaje de error.
+            //Si sucede, por la naturaleza del problema, es que el dni está repetido
+            if(count($errorInfo)>0){
+                return redirect()->back()->withInput()->withErrors($errors);
+            }else{
+                $notification = Notification::Notification('Error', 'error');
+            }
+            
+            return redirect()->back()->withInput()->with('notification', $notification);
         }
 
     }
@@ -168,14 +179,14 @@ class UserDataController extends Controller
     
                 $mobile = $this->removeMaskMobile($request->mobile);//
                 $dni = $this->removeMaskDni($request->dni);
-                $errorMobile=$this->controlMobile($mobile);
-                $errorDni=$this->controlDni($dni);
+                $errorMobile=$this->getErrorsMobile($mobile);
+                //$errorDni=$this->controlDni($dni);
                 $errors=[];
                 if(strlen($errorMobile)!=0) $errors['mobile']=$errorMobile;
-                if(strlen($errorDni)!=0) $errors['dni']=$errorDni;
+                //if(strlen($errorDni)!=0) $errors['dni']=$errorDni;
                 
                 if (count($errors)!=0) return redirect()->back()->withInput()->withErrors($errors);
-    
+                
                 $userData = UserData::where('user_id',auth()->user()->id)->first();
                 $userData->first_name = $request->first_name;
                 $userData->last_name = $request->last_name;
@@ -191,9 +202,25 @@ class UserDataController extends Controller
                     return redirect('home')->with('notification', $notification);
                 };
         }catch (\Exception $e) {
+            //dd($e);
+            //guardo la información del error
+            $errorInfo=(array)json_decode(json_encode($e,true));
+            $errors=[];
+           
+            //Reviso el código del error
+            $errors=!is_null($errorInfo['errorInfo'])?$this->getSQLError($errorInfo['errorInfo'][2]):null;
+           // $errorCode=count($errorInfo)>0?$errorInfo['errorInfo'][0]:'';
+            //dd($errorCode);
             DB::rollBack();
-            $notification = Notification::Notification('Error', 'error');
-            return redirect('userData.show')->with('notification', $notification);
+            //Dependiendo el error, podemos traer el mensaje de error.
+            //Si sucede, por la naturaleza del problema, es que el dni está repetido
+            if(count($errors)>0){
+                return redirect()->back()->withInput()->withErrors($errors);
+            }else{
+                $notification = Notification::Notification('Error', 'error');
+            }
+            
+            return redirect()->back()->withInput()->with('notification', $notification);
         }
       
     }
@@ -209,31 +236,10 @@ class UserDataController extends Controller
         //
     }
 
-    private function controlMobile($mobile){
+    private function getErrorsMobile($mobile){
         $msgError='';
-        $msgError=strlen($mobile)<10?'El teléfono debe tener 10 caracteres':'';
+        $msgError=$this->getErrorsMobile($mobile);
         return $msgError;
     }
 
-    private function controlDni($dni){
-        $errorMsg='';
-        $userData=UserData::where('dni',$dni)->where('user_id','!=',auth()->user()->id)->first();
-        if(!is_null($userData)) $errorMsg='El dni ya existe';
-        if($errorMsg=='' && strlen($dni)<8) $errorMsg='El dni debe tener 8 dígitos';
-        return $errorMsg;
-
-    }
-
-    private function removeMaskMobile($mobile){
-        $arrayRemove = array(" ","(",")","-",'_');
-        $cleanMobile = str_replace($arrayRemove,"",$mobile);
-        return $cleanMobile;
-    }
-
-    private function removeMaskDni($dni){
-        $arrayRemove = array(".",'_');
-        $cleanDni = str_replace($arrayRemove,"",$dni);
-        return $cleanDni;
-       
-    }
 }

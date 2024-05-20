@@ -89,7 +89,6 @@ export default {
             this.userLoginId=JSON.parse(userInformationTag.getAttribute('content'));
             //remuevo la etiqueta con la información del usuario de la cabecera
             userInformationTag.remove();
-            console.log(this.userLoginId);
             this.getResults(); 
             //this.calculate_total();
         };
@@ -117,9 +116,13 @@ export default {
                     
 				})
                 .catch(error=>{
+                    this.details={};
+                    if(error.text==null){
+                        this.emptyCart=true;
+                        this.$swal({icon:'error',title:'Carrito Vacío'});
+                    }
                     
-                 
-                    this.$swal({icon:'error',title:error});
+                    
                 });
             
            } catch (error) {

@@ -74,7 +74,7 @@
         </div>
 
         <div class="col-md-6">
-            @if (empty($user))
+            @if (empty($user->userdata))
             <div class="form-group">
                 <label for="dni" class="dni">DNI</label>
                 <input type="text" class="form-control maskDNI" name="dni" id="dni" placeholder="DNI" 
@@ -82,12 +82,12 @@
                 value="{{ !empty($user->userdata) ? $user->userdata->dni : old('dni') }}">
               </div>
             @else
-            <div class="form-group">
-                <label for="dni" class="dni">DNI</label>
-                <p class="alert alert-success text-center p-1">
-                    {{$user->userdata->dni}}
-                </p>
-            </div>
+                <div class="form-group">
+                    <label for="dni" class="dni">DNI</label>
+                    <p class="alert alert-success text-center p-1">
+                        {{$user->userdata->dni}}
+                    </p>
+                </div>
                
             @endif
            

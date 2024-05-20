@@ -15,7 +15,9 @@
           <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">
+            {{auth()->user()->username}}
+          </a>
           {{-- <p>Has Role {{ Auth::user()->roles[0]->name }}</p> --}}
         </div>
       </div>
@@ -82,7 +84,7 @@
 
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fa-solid fa-dolly me-3"></i>
+                  <i class="fa-solid fa-chart-pie me-3"></i>
                   <p>
                     Graphics
                     <i class="right fas fa-angle-left"></i>
@@ -99,31 +101,7 @@
                 </ul>
               </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Graphics
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Option 1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Option 2</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>
-        
+       
 
 
           <li class="nav-header">SEPARATION</li>

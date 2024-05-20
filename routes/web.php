@@ -68,15 +68,15 @@ Route::group([
     /**
      * Rutas para que el administrador gestione los datos de los usuarios.
      */
-    Route::get('userList','UserAdminController@index')->name('admin.index');
-    Route::get('createUser','UserAdminController@create')->name('admin.user.create');
-    Route::get('{user}/edit','UserAdminController@edit')->name('admin.user.edit');
-    Route::post('store','UserAdminController@store')->name('admin.user.store');
-    Route::post('search','UserAdminController@searchUser')->name('admin.user.search');
-    Route::get('userDestroy/{user?}','UserAdminController@destroy')->name('admin.user.destroy');
-    Route::put('{user}/update', 'UserAdminController@update')->name('admin.user.update');
-    Route::get('show','UserAdminController@show')->name('admin.user.show');
-    Route::get('getUser/{userId?}','UserAdminController@getUserById')->name('admin.user.getUser');
+    Route::get('userList','UserController@index')->name('admin.index');
+    Route::get('createUser','UserController@create')->name('admin.user.create');
+    Route::get('{user}/edit','UserController@edit')->name('admin.user.edit');
+    Route::post('store','UserController@store')->name('admin.user.store');
+    Route::post('search','UserController@searchUser')->name('admin.user.search');
+    Route::get('userDestroy/{user?}','UserController@destroy')->name('admin.user.destroy');
+    Route::put('{user}/update', 'UserController@update')->name('admin.user.update');
+    Route::get('show','UserController@show')->name('admin.user.show');
+    Route::get('getUser/{userId?}','UserController@getUserById')->name('admin.user.getUser');
 
     
 

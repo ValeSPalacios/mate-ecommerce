@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@extends('layouts.nav')
+@extends('layouts.navBarAdmin')
 @extends('menu.menu')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -36,7 +36,8 @@
             <!-- /.card-header -->
 
             <!-- form start -->
-            <form method="POST" action="{{ route('admin.user.update',$user->id) }}" onsubmit="return validateForm(false);" 
+            <form method="POST" action="{{ route('admin.user.update',$user->id) }}"
+               onsubmit="return validateForm(false);" 
               enctype="multipart/form-data" autocomplete="off">
                   @method('PUT')
                   @csrf
