@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AddRolePermission::class);
         $this->call(AddCategories::class);
         $this->call(AddProducts::class);
-        // $this->call(AddProviders::class);
-        // $this->call(AddProvidersProduct::class);
+      
     }
 }

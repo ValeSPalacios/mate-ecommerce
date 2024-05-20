@@ -53,30 +53,7 @@
 
                 </ul>
               </li>
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-store me-3"></i>
-                  <p>
-                    Provider
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview text-center">
-                  <li class="nav-item">
-                    <a href="{{ route('admin.provider.create') }}" class="nav-link">
-                      <i class="fa-regular fa-handshake me-3"></i>
-                      <p>New</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('admin.provider.index') }}" class="nav-link">
-                      <i class="fa-solid fa-list me-3"></i>
-                      <p>List</p>
-                    </a>
-                  </li>
-
-                </ul>
-              </li>
+             
                <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fa-solid fa-cubes me-3"></i>
@@ -101,30 +78,7 @@
 
                 </ul>
               </li>
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-dolly me-3"></i>
-                  <p>
-                    Purchase
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview text-center">
-                  <li class="nav-item">
-                    <a href="{{ route('admin.purchase.create') }}" class="nav-link">
-                      <i class="fa-solid fa-bag-shopping me-3"></i>
-                      <p>New</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('admin.purchase.index') }}" class="nav-link">
-                      <i class="fa-solid fa-list me-3"></i>
-                      <p>List</p>
-                    </a>
-                  </li>
-
-                </ul>
-              </li>
+             
 
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -139,12 +93,6 @@
                     <a href="{{ route('admin.graphic.index') }}" class="nav-link">
                       <i class="fa-solid fa-bag-shopping me-3"></i>
                       <p>Products</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ route('admin.purchase.index') }}" class="nav-link">
-                      <i class="fa-solid fa-list me-3"></i>
-                      <p>List</p>
                     </a>
                   </li>
 
@@ -175,83 +123,11 @@
 
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Menu 2
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Option 1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Option 2</p>
-                </a>
-              </li>
-
-
-            </ul>
-          </li>
+        
 
 
           <li class="nav-header">SEPARATION</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Menu Option 3
-                <span class="badge badge-info right">#</span>
-              </p>
-            </a>
-          </li>
-
-
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-plus-square"></i>
-              <p>
-                Menu Multi level
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Login v1
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Login v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Login v2</p>
-                    </a>
-                  </li>
-
-
-                </ul>
-              </li>
-            </ul>
-          </li>
-
+      
           <li class="nav-item">
 
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -263,7 +139,7 @@
                 @csrf
             </form>
           </li>
-
+       
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
