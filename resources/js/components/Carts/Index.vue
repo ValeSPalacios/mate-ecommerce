@@ -1,71 +1,64 @@
 <template>
-  <div>
-    <div v-if="emptyCart===false">
-       
-        <h2 class="text-center">Lista De Productos</h2>
-        <div>
-           
-            <table class="table table-striped table-responsive text-center my-5 m-auto">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Precio Final</th>
-                    <th>Add One</th>
-                    <th>Reduce One</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="detail in details.data" :key="detail.id">
-                    <td> {{ detail.name}} </td>
-                    <td> {{ detail.cost_price }}</td>
-                    <td> {{ detail.count }} </td>
-                    <td> {{ detail.final_price }} </td>
-                    <td>
-                    <button class="btn" @click="update_detail(detail.id,1)">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                    </td>
-                    <td><button class="btn" @click="update_detail(detail.id,-1)">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                    </td>
-                    <td>
-                        <button class="btn" @click="delete_detail(detail.id)">
-                            <i class="fas fa-trash-alt" style="color:red"></i>
-                        </button>
+    <div>
+        <div v-if="emptyCart===false">
+            <h2 class="text-center poppins-semibold">Lista de Productos</h2>
+            <div>
+            
+                <table class="table table-striped text-center my-5 m-auto">
+                    <thead>
+                        <tr class="poppins-medium">
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Precio Final</th>
+                            <th>Aumentar</th>
+                            <th>Reducir</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="poppins-regular" v-for="detail in details.data" :key="detail.id">
+                            <td> {{ detail.name}} </td>
+                            <td> {{ detail.cost_price }}</td>
+                            <td> {{ detail.count }} </td>
+                            <td> {{ detail.final_price }} </td>
+                            <td>
+                            <button class="btn" @click="update_detail(detail.id,1)">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            </td>
+                            <td><button class="btn" @click="update_detail(detail.id,-1)">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            </td>
+                            <td>
+                                <button class="btn" @click="delete_detail(detail.id)">
+                                    <i class="fas fa-trash-alt" style="color:red"></i>
+                                </button>
 
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-         <pagination :data="details" @pagination-change-page="getResults"></pagination>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination :data="details" @pagination-change-page="getResults"></pagination>
+            </div>
+        
         </div>
-       
-    </div>
-    <div v-else>
-        <h2>No hay elementos en el carrito aún</h2>
-    </div>
-    <div class="alert alert-success text-center">
-        {{ "Precio Final Total: " + total }}
-        <div>
-          
+        <div v-else>
+            <h2>No hay elementos en el carrito aún</h2>
         </div>
-    </div>
+        <div class="poppins-medium alert alert-success text-center">
+            {{ "Precio Final Total: " + total }}
+            <div>
+            
+            </div>
+        </div>
         
     </div>
 </template>
 
 <script>
-
-
- 
 export default {
-   
-  
     data(){
         return{
             // Our data object that holds the laravel paginator data
@@ -180,7 +173,5 @@ export default {
      
     }
 }
-
 </script>
-</template>
 

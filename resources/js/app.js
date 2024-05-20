@@ -1,14 +1,11 @@
 require('./bootstrap');
-
-
 window.Vue = require('vue').default;
 
 import VueRouter from 'vue-router';
 import VueSweetAlert2 from 'vue-sweetalert2';
 import Appmainvue from './components/App.vue';
-
-
 import CartClient from './components/Carts/Index.vue';
+
 Vue.use(VueRouter);
 Vue.use(VueSweetAlert2);
 // importamos los estilos de Sweet Alert 2
@@ -22,8 +19,6 @@ const router = new VueRouter({
             component:CartClient,
             name:'cart.index'
         },
-      
-
     ]
 })
 
@@ -37,4 +32,4 @@ const app = new Vue({
     components:{Appmainvue,CartClient},
     template: '<CartClient></CartClient>',
     router
-  });
+});

@@ -15,7 +15,6 @@
                         Buy
                     </button>
                 </form>
-             
             </div>
             <div class="container">
                 @if($errors->has('msgError'))
