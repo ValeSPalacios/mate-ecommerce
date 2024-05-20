@@ -2,7 +2,7 @@
 @extends('layouts.logo')
 
 @section('content')
-<div class="container py-5 reset-password">
+<div class="py-5 reset-password">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-3 rounded-3 formBody body">

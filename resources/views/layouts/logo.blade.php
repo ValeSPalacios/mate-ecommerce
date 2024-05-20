@@ -7,16 +7,16 @@
             @guest
                 @if(Route::has('register'))
                     <div class="col-7 col-sm-7">
-                        <a href="{{route('register')}}" class="body poppins-regular">
-                            Registrarse
+                        <a href="{{route('register')}}" class="body poppins-medium">
+                            <h5>Registrarse</h5>
                         </a>
                     </div>
                 @endif
 
                 @if(Route::has('login'))
                     <div class="col-5 col-sm-5">
-                        <a href="{{route('login')}}"  class="body poppins-regular">
-                            Ingresar
+                        <a href="{{route('login')}}"  class="body poppins-medium">
+                            <h5>Ingresar</h5>
                         </a>
                     </div>
                 @endif
@@ -27,7 +27,6 @@
                         <a href="{{ route('cart.index') }}">
                             <i class="fa fa-shopping-cart fa-2xl pr-2 nav-icon" aria-hidden="true"></i>
                         </a>
-                       
                     </div>
                     <button class="poppins-medium dropdown-toggle btn p-2" style="font-size: 20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ Auth::user()->username }}
