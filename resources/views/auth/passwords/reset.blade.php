@@ -3,11 +3,11 @@
 @section('title','Reinicio Contraseña')
 @section('content')
 
-<div class="container">
+<div class="py-5 reset-password">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+        <div class="col-md-6">
+            <div class="card p-3 rounded-3 formBody body">
+                <h3 class="poppins-semibold my-4 pb-md-0 mb-md-2 px-md-3">Reseteo de contraseña</h3>
 
                     <div class="card-body">
                         @if($errors->has('error_message'))
@@ -20,51 +20,43 @@
 
                             <input type="hidden" name="token" value="{{ $token }}">
 
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input id="email" type="email" class="form-control 
+                                    @error('email') is-invalid @enderror"  name="email" value="{{ $email ?? old('email') }}"
+                                    required autocomplete="email" autofocus>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                <label class="poppins-medium form-label" for="login">Correo electrónico</label>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" 
+                                    name="password" required autocomplete="new-password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                <label class="poppins-medium form-label" for="password">Contraseña</label>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password_confirmation" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     @error('password_confirmation')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                <label class="poppins-medium form-label" for="password_confirmation">Confirmar Contraseña</label>
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Reset Password') }}
+                            <div class="pt-1 mb-4">
+                                <div class="col d-flex justify-content-center">
+                                    <button type="submit" class="poppins-regular btn general-btn btn-lg btn-block">
+                                        Guardar Contraseña
                                     </button>
                                 </div>
                             </div>
