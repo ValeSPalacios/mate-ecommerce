@@ -1,14 +1,11 @@
 <template>
     <div>
-         
         <CartClient></CartClient>
     </div>
-    
 </template>
 
 <script>
- 
- export default {
+export default {
  
    data(){
         return{
@@ -16,8 +13,8 @@
             idUserLogin
         }
     },
-   mounted(){
-    console.log(this.idUserLogin);
-   }
+    mounted(){
+        console.log(this.idUserLogin);
+    }
 }
 </script>
